@@ -1,4 +1,4 @@
-## Autonomous DB Tutorials 
+# Autonomous DB Tutorial 
 
 ## OCI First Steps
 
@@ -344,4 +344,3 @@ Log in as admin user and password that you assigned when you created the instanc
 You can find the ATP guide here:
 
 https://github.com/gustavogaspar/workshops/blob/master/WorkshopGuide.pdf
-
