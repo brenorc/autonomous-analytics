@@ -1,6 +1,6 @@
 ## Autonomous DB Tutorials 
 
-#### OCI First Steps
+## OCI First Steps
 
 Oracle Cloud is available in some Regions.
 
@@ -15,7 +15,7 @@ Over this basic infrastructure, we provide the PaaS and IaaS necessary for our c
 
 ![OCI - Overview](https://i.imgur.com/NoDpBq7.png)
 
-##### Hands-on: Creating the Autonomous DB
+### Hands-on: Creating the Autonomous DB
 
 Access https://cloud.oracle.com and login with the credentials provided by the trainer
 
@@ -70,19 +70,19 @@ Your results should look like the picture below:
 
 ![SampleQuery2](https://i.imgur.com/tWRkQRl.png)
 
-##### DEMO: Connecting to the service through SQL Developer 
+### DEMO: Connecting to the service through SQL Developer 
 
-##### DEMO: Testing different connections (High, Medium, Low)
+### DEMO: Testing different connections (High, Medium, Low)
 
-##### DEMO: Loading data through SQL*Net
+### DEMO: Loading data through SQL*Net
 
-#### Loading Data to ADW
+## Loading Data to ADW
 
 In this lab, you will be uploading files to the Oracle Cloud Infrastructure (OCI) Object Storage, creating sample tables, loading data into them from files on the OCI Object Storage, and troubleshooting data loads with errors.
 
 To load data from files in the cloud into your Autonomous Data Warehouse database, use the new PL/SQL DBMS_CLOUD package. The DBMS_CLOUD package supports loading data files from the following Cloud sources: Oracle Cloud Infrastructure Object Storage, Oracle Cloud Infrastructure Object Storage Classic, Amazon AWS S3 and Microsoft Azure Object Store.
 
-##### ** Navigate to Object Storage**
+### Navigate to Object Storage
 
 From the Autonomous Data Warehouse console, pull out the left side menu from the top-left corner and select **Object Storage**. 
 
@@ -100,7 +100,7 @@ Name your bucket  and click the **Create Bucket** button.
 
 ![lab4](https://i.imgur.com/NCnst5O.jpg)
 
-##### **Upload Files to Your OCI Object Store Bucket**
+### **Upload Files to Your OCI Object Store Bucket**
 
 Click on your **bucket name** to open it:
 
@@ -114,7 +114,7 @@ Using the browse button or select all the files downloaded in the earlier step, 
 
 ![lab7](https://i.imgur.com/fSa78SX.jpg)
 
-##### **Copy the URL for the Files in Your OCI Object Storage**
+### **Copy the URL for the Files in Your OCI Object Storage**
 
 Copy following base URL that points to the location of your files staged in the OCI Object Storage. The simplest way to get this URL is from the "Object Details" in the right hand side ellipsis menu in the Object Store.
 
@@ -132,7 +132,7 @@ https://objectstorage.<region_name>.oraclecloud.com/n/<tenant_name>/b/<bucket_na
 
 **Save** the base URL you copied in a note. We will use the base URL in following steps.
 
-##### **Creating an Object Store Auth Token**
+### **Creating an Object Store Auth Token**
 
 To load data from the Oracle Cloud Infrastructure(OCI) Object Storage you will need an OCI user with the appropriate privileges to read data (or upload) data to the Object Store. The communication between the database and the object store relies on the Swift protocol and the OCI user Auth Token.
 
@@ -161,7 +161,7 @@ The new Auth Token is displayed. Click **Copy** to copy the Auth Token to the cl
 
 ![lab16](https://i.imgur.com/ZqlaVGo.jpg)
 
-##### Create a Database Credential for Your User
+### Create a Database Credential for Your User
 
 In order to access data in the Object Store you have to enable your database user to authenticate itself with the Object Store using your OCI object store account and Auth token. You do this by creating a private CREDENTIAL object for your user that stores this information encrypted in your Autonomous Data Warehouse. This information is only usable for your user schema.
 
@@ -190,7 +190,7 @@ Run the script.
 
 Now you are ready to load data from the Object Store.
 
-##### Creating a Table to receive the data
+### Creating a Table to receive the data
 
 Next we will create a Table to where we are going to load all the data we have just uploaded to the Object Storage
 
@@ -288,7 +288,7 @@ CREATE TABLE admin.credit_scoring_100k
      grant select any table to public;
 ```
 
-##### **Loading Data Using the PL/SQL Package, DBMS_CLOUD**
+### **Loading Data Using the PL/SQL Package, DBMS_CLOUD**
 
 It is possible to use the DBMS_CLOUD package to load the data directly form object storage to the table. This is the preferred choice for any load automation.
 
@@ -303,7 +303,7 @@ begin
 end;
 ```
 
-##### **Troubleshooting DBMS_CLOUD data loads**
+### **Troubleshooting DBMS_CLOUD data loads**
 
 Connected as your user in SQL Developer, run the following query to look at past and current data loads.
 
@@ -319,9 +319,9 @@ Run the following query to see the load that errored out.
 select * from user_load_operations where status='FAILED';
 ```
 
-#### Using Oracle Machine Learning
+## Using Oracle Machine Learning
 
-##### Creating OML Users 
+### Creating OML Users 
 
 In the Database, go to Service Console
 
@@ -333,14 +333,15 @@ Select Administration and `Manage Oracle ML Users`.
 
 Log in as admin user and password that you assigned when you created the instance and Create new ML user. You will receive shortly an e-mail with your credentials and the link to the Oracle Machine Learning webpage.
 
-##### Working with Zeppelin Notebook for Data Mining 
+### Working with Zeppelin Notebook for Data Mining 
 
 - Login into OML
 - Load a notebook
 - Explore Zeppelin Notebooks features
 
-####  Working with ATP and Node.js
+##  Working with ATP and Node.js
 
 You can find the ATP guide here:
 
 https://github.com/gustavogaspar/workshops/blob/master/WorkshopGuide.pdf
+
