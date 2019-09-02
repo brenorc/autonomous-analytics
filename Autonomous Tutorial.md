@@ -13,17 +13,19 @@ storage and network IO out of the hypervisor and enables lower overhead and bare
 
 Over this basic infrastructure, we provide the PaaS and IaaS necessary for our customer to reach their goals. 
 
-![OCI - Overview](C:\Users\bcomin\Desktop\OCI - Overview.png)
+![OCI - Overview](https://i.imgur.com/NoDpBq7.png)
 
 ##### Hands-on: Creating the Autonomous DB
 
 Access https://cloud.oracle.com and login with the credentials provided by the trainer
 
-![Cloud_login1](C:\Users\bcomin\Desktop\Prints Workshop\Cloud_login1.png)
+![Cloud_login](https://i.imgur.com/c6aRDg5.png)
+
+
 
 Select Autonomous Data Warehouse in the Upper-left menu (aka hamburger menu) 
 
-![Cloud_login2](C:\Users\bcomin\Desktop\Prints Workshop\Cloud_login2.png)
+![Cloud_login2](https://i.imgur.com/ibxQ1tO.png)
 
 Create a new database. You will have to choose:
 
@@ -37,17 +39,17 @@ Create a new database. You will have to choose:
 - The password for the admin account
 - The license type (BYOL or New License)
 
-![Cloud_login3](C:\Users\bcomin\Desktop\Prints Workshop\Cloud_login3.png)
+![Cloud_login3](https://i.imgur.com/nP4sAHl.png)
 
 To make sure the database is working as intended, we are going to log into SQL Developer Web.
 
 In the Database, go to Service Console
 
-![OML Users](C:\Users\bcomin\Desktop\Prints Workshop\OML Users.png)
+![OML Users](https://i.imgur.com/Hp4KKJw.png)
 
 Select SQL Developer Web in the Development Menu
 
-![SampleQuery](C:\Users\bcomin\Desktop\Prints Workshop\SampleQuery.png)
+![SampleQuery](https://i.imgur.com/jZsRoF0.png)
 
 Login with the admin user and your password, and use the following sample query:
 
@@ -66,7 +68,7 @@ GROUP BY channel_desc;
 
 Your results should look like the picture below:
 
-![SampleQuery2](C:\Users\bcomin\Desktop\Prints Workshop\SampleQuery2.png)
+![SampleQuery2](https://i.imgur.com/tWRkQRl.png)
 
 ##### DEMO: Connecting to the service through SQL Developer 
 
@@ -84,7 +86,7 @@ To load data from files in the cloud into your Autonomous Data Warehouse databas
 
 From the Autonomous Data Warehouse console, pull out the left side menu from the top-left corner and select **Object Storage**. 
 
-![lab1](C:\Users\bcomin\Desktop\Prints Workshop\lab1.jpg)
+![lab1](https://i.imgur.com/1i410KQ.jpg)
 
 To learn more about the OCI Object Storage, refer to its [documentation](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/addingbuckets.htm) .
 
@@ -92,33 +94,33 @@ In OCI Object Storage, a bucket is the terminology for a container of multiple f
 
 Click the **Create Bucket** button:
 
-![lab3](C:\Users\bcomin\Desktop\Prints Workshop\lab3.jpg)
+![lab3](https://i.imgur.com/n2cVKib.jpg)
 
 Name your bucket  and click the **Create Bucket** button.
 
-![lab4](C:\Users\bcomin\Desktop\Prints Workshop\lab4.jpg)
+![lab4](https://i.imgur.com/NCnst5O.jpg)
 
 ##### **Upload Files to Your OCI Object Store Bucket**
 
 Click on your **bucket name** to open it:
 
-![lab5](C:\Users\bcomin\Desktop\Prints Workshop\lab5.jpg)
+![lab5](https://i.imgur.com/uE1pUd5.jpg)
 
 Click on the **Upload Object** button:
 
-![lab6](C:\Users\bcomin\Desktop\Prints Workshop\lab6.jpg)
+![lab6](https://i.imgur.com/pS8WSiT.jpg)
 
 Using the browse button or select all the files downloaded in the earlier step, click Upload and wait for the upload to complete:
 
-![lab7](C:\Users\bcomin\Desktop\Prints Workshop\lab7.jpg)
+![lab7](https://i.imgur.com/fSa78SX.jpg)
 
 ##### **Copy the URL for the Files in Your OCI Object Storage**
 
 Copy following base URL that points to the location of your files staged in the OCI Object Storage. The simplest way to get this URL is from the "Object Details" in the right hand side ellipsis menu in the Object Store.
 
-![lab9](C:\Users\bcomin\Desktop\Prints Workshop\lab9.png)
+![lab9](https://i.imgur.com/SEnOa3S.png)
 
-![lab10](C:\Users\bcomin\Desktop\Prints Workshop\lab10.png)
+![lab10](https://i.imgur.com/KwgbBk4.png)
 
 Take a look at the URL you copied. In this example above, the **region name** is us-phoenix-1, the **tenant name** is adwctraining8, and the **bucket name** is ADWCLab.
 
@@ -136,28 +138,28 @@ To load data from the Oracle Cloud Infrastructure(OCI) Object Storage you will n
 
 Go back to the **Autonomous Data Warehouse Console** in your browser. From the pull-out menu on the top left, under **Identity**, click **Users**.
 
-![lab11](C:\Users\bcomin\Desktop\Prints Workshop\lab11.jpg)
+![lab11](https://i.imgur.com/Eyx5o4l.jpg)
 
 Click the **user's name** to view the details. Also, remember the username as you will need that in the next step. This username could also be an email address.
 
-![lab12](C:\Users\bcomin\Desktop\Prints Workshop\lab12.jpg)
+![lab12](https://i.imgur.com/FnEOJPh.jpg)
 
 On the left side of the page, click **Auth Tokens**.
 
-![lab13](C:\Users\bcomin\Desktop\Prints Workshop\lab13.jpg)
+![lab13](https://i.imgur.com/OownUhz.jpg)
 
 Click **Generate Token**.
 
-![lab14](C:\Users\bcomin\Desktop\Prints Workshop\lab14.jpg)
+![lab14](https://i.imgur.com/5JNOUks.jpg)
 
 Enter a friendly **description** for the token and click **Generate Token**.
 
-![lab15](C:\Users\bcomin\Desktop\Prints Workshop\lab15.jpg)
+![lab15](https://i.imgur.com/nyxJJMd.jpg)
 
 The new Auth Token is displayed. Click **Copy** to copy the Auth Token to the clipboard. You probably want to save this in a temporary notepad document for the next few minutes (you'll use it in the next step).
 *Note: You can't retrieve the Auth Token again after closing the dialog box.*
 
-![lab16](C:\Users\bcomin\Desktop\Prints Workshop\lab16.jpg)
+![lab16](https://i.imgur.com/ZqlaVGo.jpg)
 
 ##### Create a Database Credential for Your User
 
@@ -180,11 +182,11 @@ set define on
 
 Specify the credentials for your Oracle Cloud Infrastructure Object Storage service: The username will be your **OCI username** (usually your email address, not your database username) and the password is the OCI Object Store **Auth Token** you generated in the previous step. In this example, the credential object named **OBJ_STORE_CRED** is created. You reference this credential name in the following steps.
 
-![lab17](C:\Users\bcomin\Desktop\Prints Workshop\lab17.jpg)
+![lab17](https://i.imgur.com/RJtBHii.jpg)
 
 Run the script.
 
-![lab18](C:\Users\bcomin\Desktop\Prints Workshop\lab18.png)
+![lab18](https://i.imgur.com/aU6fl5q.png)
 
 Now you are ready to load data from the Object Store.
 
@@ -301,38 +303,44 @@ begin
 end;
 ```
 
+##### **Troubleshooting DBMS_CLOUD data loads**
 
+Connected as your user in SQL Developer, run the following query to look at past and current data loads.
 
-#####  
+```sql
+select * from user_load_operations;
+```
+
+Notice how this table lists the past and current load operations in your schema. Any data copy and data validation operation will have backed up records in your Cloud.
+
+Run the following query to see the load that errored out.
+
+```sql
+select * from user_load_operations where status='FAILED';
+```
+
+#### Using Oracle Machine Learning
 
 ##### Creating OML Users 
 
 In the Database, go to Service Console
 
-![OML Users](C:\Users\bcomin\Desktop\Prints Workshop\OML Users.png)
+![OML Users](https://i.imgur.com/Hp4KKJw.png)
 
 Select Administration and `Manage Oracle ML Users`.
 
-![OML Users2](C:\Users\bcomin\Desktop\Prints Workshop\OML Users2.png)
+![OML Users2](https://i.imgur.com/00E39Nn.png)
 
-Log in as admin user and password that you assigned when you created the instance and Create new ML user. 
+Log in as admin user and password that you assigned when you created the instance and Create new ML user. You will receive shortly an e-mail with your credentials and the link to the Oracle Machine Learning webpage.
 
-You will receive shortly an e-mail with your credentials and the link to the Oracle Machine Learning webpage.
+##### Working with Zeppelin Notebook for Data Mining 
 
-##### 
+- Login into OML
+- Load a notebook
+- Explore Zeppelin Notebooks features
 
+####  Working with ATP and Node.js
 
+You can find the ATP guide here:
 
-
-
-#####  Working with Zeppelin Notebook for Data Mining 
-
-
-
-##### Connecting ADW to OAC to generate reports
-
-##### Enriching analyses with Analytics 
-
-##### Displaying results on Oracle Day-by-Day 
-
-##### Using Data Sync to connect to ADWC 
+https://github.com/gustavogaspar/workshops/blob/master/WorkshopGuide.pdf
