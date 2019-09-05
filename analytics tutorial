@@ -1,0 +1,488 @@
+# Oracle Analytics Cloud Tutorial
+
+This guide was built to be used as a complement to the Oracle Analytics Cloud Hand-on Practice provided by Oracle Alliances & Channels. Not every step will be detailed here, but you can use it to check the main activities and replicate some labs in the future. I am always open to suggestions on how the workshops can be improved. Reach me at breno.comin@oracle.com if you want to talk about it.
+
+## Oracle Analytics Quick-Tour
+
+Before our hands-on practices we will have a quick overview of the features available on Oracle Analytics Cloud, for both versions Professional and Enterprise.
+
+- How to provision OAC
+- Home Page Key Points
+- OAC Features Overview
+- BICS Features Overview 
+
+## Oracle Data Visualization
+
+Oracle DV is part of our Oracle Analytics Cloud solution. It is responsible for generating a visual interactive interface for end-users to explore and dive into data, bring insights to every kind of users - from developers to business users.
+
+Oracle releases also a Desktop version which anyone can download for free from the Oracle Technology Network: [Data Visualization Desktop](https://www.oracle.com/middleware/technologies/oracle-data-visualization-desktop.html). There is total interoperability between the OnPremises and the Cloud version, and projects can be created on one of them and further moved to another.
+
+You will find a lot of features to explore on Data Visualization, which are mostly covered by those 2 free courses created by Oracle:
+
+[Modern Data Visualization with Oracle Analytics Cloud](https://www.udemy.com/course/augmented-analytics/)
+
+[Augmented Data Visualization with Machine Learning](https://www.udemy.com/course/machinelearning-analytics/)
+
+### Data Visualization Exercise 
+
+For our Data Viz exercise, we will load a .dva file into the platform and explore some visualization options. In the **Home Page**, click the **upper-right menu** and choose the **Import Project** button.
+
+![Import Project](https://i.imgur.com/YMGZM6v.png)
+
+You will shortly receive a success message if everything goes alright.
+
+![ImportSuccess](https://i.imgur.com/5gAkU62.png)
+
+A .dva file does not contain exclusively a Data Visualization project. It may contain as well other assets such as Datasets, Data Flows, Connections to the data sources, etc. They will also be imported to the cloud platform as you will can notice on the examples.
+
+![ImportedProj](https://i.imgur.com/aqUaGn6.png)
+
+The project can be found under the **Projects tab** in the hamburger menu or will be automatically displayed at the **Home Page**. Open it and you will see a canvas where you can begin exploring your data:
+
+![Canvas](https://i.imgur.com/wvHU8hF.png)
+
+To create a new visualization you just have to drag-and-drop information from the list of columns available in the dataset. Let's try to bring information about **Sales and Product Container**. 
+
+![DragDrop](https://i.imgur.com/3rmu70V.png)
+
+By bringing both of them to the blank area, OAC generates a Sales by Product Container report. Simple as that.
+
+![DataViz](https://i.imgur.com/ThXp3FK.png)
+
+### The Challenge
+
+This is a sales history dataset full of transaction data. From the available variables, your challenge is to answer these questions:
+
+- **How many product units were ordered in 2014? How did this number evolved in the lat years?**
+- **Which Product Sub Categories bring more profit to the company?  Which of them have the higher Profit Ratios (Profit/Sales)?**
+- **In which countries are we selling the most? Can we see this information on a map?**
+
+By answering these question the user is able to know superficially core Oracle Data Visualization concepts, such as filtering, dashboarding, creating calculations and more.
+
+## Data Flow + Machine Learning
+
+After trying out the 'front-end' of Oracle Analytics Cloud it is time to explore other practices and features. With Data Flow, we are able to create joins between different sources and logical operations with the data. Usually we will use it for ETL purposes , just keep in mind it is not as powerful as ODI (which can be provisioned on OCI as a free image - that means you will only pay for the Compute).
+
+Good news is that a Data Flow may imported with a .dva file, so we can take a look on a Machine Learning project completely created in OAC. For that, we will import the **Naive Bayes Apply-Attrition+Analysis.dva** (the file password is **Admin123**).
+
+You can check that you have imported:
+
+- 1 Project
+
+![Proj](https://i.imgur.com/EiBTY9D.png)
+
+- 3 Datasets
+
+![Dataset](https://i.imgur.com/qaSBd2S.png)
+
+- 3 Data Flows
+
+![Dataflow](https://i.imgur.com/4rP9e6R.png)
+
+First, we are going to explore the Naives-Bayes Attrition Training Data Flow. Opening the Data Flow, we can see that we have a pretty straightforward flow: an input, a model training, and an output:
+
+![Naives-Bayes](https://i.imgur.com/AuM2zSF.png)
+
+For bringing data to the Data Flow, you will always use the **Add Data** option, the first one from the list. Other data preparation steps may be used, such as **Joins, Filters, Branchs and Custom Calculations**. An example of a more complex Data Flow is shown below:
+
+![ComplexDF](https://i.imgur.com/JGCgKvO.png)
+
+Going on with the Naives-Bayes Attrition Training example, first step selects the columns from the source dataset. This whole step may be prompted to select the data when the Data Flow runs, so a Flow is not exclusively used for a single data source.
+
+![1stStep](https://i.imgur.com/ef2hQYX.png)
+
+Second step is training a Machine Learning model using an algorithm provided by Oracle Analytics Cloud. In this case, it is a Naive-Bayes algorithm for Classification, used to analyze the history of people leaving the company (Attrition) and predict the behavior of all employees. Since the output is binary (Yes/No), a Binary Classifier is used, but there is also algorithms for **Numeric Predictions, Multi-classifiers and Clustering**, for example. You can set the algorithm parameters as you wish, as long as you keep Attrition as the target variable. This is what we want to predict: if someone is probably going to leave the company or not.
+
+![2ndStep](https://i.imgur.com/SRbtqXV.png)
+
+Last step is saving the model. When you run the Data Flow, the output of it will be a Machine Learning model, and you can edit its name and description.
+
+![3rdStep](https://i.imgur.com/mca5HBc.png)
+
+Data Flow can now be run and will perform every step in it. If there is need of building a big, complex flow, you can split it into smaller ones and run them as a **Sequence**. If one of those Data Flows fails, everything will be rolled back to the initial stage it was before the Sequence start.
+
+![Success](https://i.imgur.com/Y3wTXWY.png)
+
+When the Data Flow is completed, we can check our results on the Machine Learning tab.
+
+![MLTab](https://i.imgur.com/cCF8uMJ.png)
+
+Machine Learning area will display every Model trained by OAC, and also give you managing options.
+
+![ML](https://i.imgur.com/ioPaZsE.png)
+
+By **right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
+
+![Model](https://i.imgur.com/uu502EY.png)
+
+As you can see, the automatically generated model does not have a very impressive performance. Having a Machine Learning model is not the end of the road for you. Now you are going to **Apply** this model to a dataset and generate a prediction.
+
+You can do it by opening the **Naive-Bayes Apply Model - Attrition Prediction** Data Flow and executing it. Basically, if you choose the Apply Model step of the flow, you can change details like Inputs and Outputs, but we are not going to change anything right now.
+
+![MLApply](https://i.imgur.com/u8qfsN0.png)
+
+The model training data flow saved a model as output. By applying the machine learning model to the dataset, the output si now another dataset, with all the original dataset columns and 2 more: PredictedValue and PredictedConfidence.
+
+As soon as the data flow ends, you can search for the dataset on Data. In this example its name is **Attiction Predicted Data**.
+
+![MLData](https://i.imgur.com/emDKiFZ.png)
+
+If you haven't defined the metrics columns at the Data Flow level, you should do it on the **Prepare Tab**. Otherwise, you can begin exploring the data with Data Visualization. In my case I've chosen to create a custom calculation to count the predicted values. You can do it by **right-clicking My Calculations** and **Adding a Calculation**.
+
+![AddCalc](https://i.imgur.com/MIfmS1G.png)
+
+The name can be CountPredict or any other, and you can choose between lots of logical and mathematical operators. A simple count will do the job here:
+
+```sql
+COUNT(<column name>)
+```
+
+![count](https://i.imgur.com/TeQDydP.png)
+
+By using the new CountPredict column as Values, PredictedAttrition as Colors and Department as Trellis Columns, a new visualization was generated. One that shows how many employees were predicted to leave and how many were not, grouped by the department where they work:
+
+![Viz](https://i.imgur.com/L042dEx.png)
+
+To take a look on a more advanced dashboard, it is possible to take a look at the project imported with the .dva file:
+
+![ProjectML](https://i.imgur.com/SI8t7CS.png)
+
+There is a lot of visualizations created, all of them could be explored, filtered and shared to other users.
+
+![MLDashboard](https://i.imgur.com/B1QM4h4.png)
+
+That's all for the Machine Learning practice!
+
+## Dimensional Modeling
+
+First of all, we will connect our Autonomous Database instance to Oracle Analytics Cloud. Although we have already done it on the previous steps, if we want to be able to  access the ADW via Classic Home / BI Modeler the Data Visualization connection isn't sufficient.
+
+### Connection creation
+
+So you have to go to the Home Page, and reach the connection area:
+
+Menu > Console > Configuration and Administration > Connections
+
+![1559653929693](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\1559653929693.png)
+
+Then, we will create a JDBC connection as the admin user, by clicking on the **Create** button. The TNS Descriptor used to connect to the Database can be found inside the wallet file, on **tnsnames.ora**.
+
+If the connection creation is successful, you will see the new connection listed in the connections page.
+
+![1559653985523](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\1559653985523.png)
+
+### Data Loading into ADWC
+
+It is also necessary to create Create the DW tables and insert some rows before working with the Data Modeler. For that, you can directly paste the following SQL queries on SQL Developer Web.
+
+```sql
+--------------------------------------------------------
+--  DDL for Table CLOUD_D_CUSTOMERS
+--------------------------------------------------------
+
+  CREATE TABLE CLOUD_D_CUSTOMERS
+   ("CUST_BIRTH_DATE" DATE, 
+	"CUST_CREDIT_RATE" NUMBER, 
+	"CUST_GENDER" VARCHAR2(20 BYTE), 
+	"CUST_MARITAL_STATUS" VARCHAR2(20 BYTE), 
+	"CUST_NAME" VARCHAR2(255 BYTE), 
+	"CUST_NUMBER" NUMBER, 
+	"CUST_SEGMENT" VARCHAR2(255 BYTE), 
+	"CUST_TYPE" VARCHAR2(255 BYTE)
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CLOUD_D_GEOGRAPHY
+--------------------------------------------------------
+
+  CREATE TABLE CLOUD_D_GEOGRAPHY
+   (	"ADDRESS1" VARCHAR2(100 BYTE), 
+	"ADDRESS2" VARCHAR2(100 BYTE), 
+	"ADDR_KEY" NUMBER, 
+	"CITY" VARCHAR2(100 BYTE), 
+	"COUNTRY_CODE" VARCHAR2(3 BYTE), 
+	"COUNTRY_NAME" VARCHAR2(100 BYTE), 
+	"POSTAL_CODE" VARCHAR2(12 BYTE), 
+	"STATE_PROV" VARCHAR2(40 BYTE)
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CLOUD_D_PRODUCTS
+--------------------------------------------------------
+
+  CREATE TABLE CLOUD_D_PRODUCTS
+   (	"PRODUCT" VARCHAR2(100 BYTE), 
+	"PROD_BRAND" VARCHAR2(100 BYTE), 
+	"PROD_ITEM_DSC" VARCHAR2(100 BYTE), 
+	"PROD_ITEM_KEY" VARCHAR2(100 BYTE), 
+	"PROD_LOB" VARCHAR2(100 BYTE), 
+	"PROD_TYPE" VARCHAR2(100 BYTE)
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CLOUD_F_BILL_REV
+--------------------------------------------------------
+
+  CREATE TABLE CLOUD_F_BILL_REV
+   (	"ADDR_KEY" NUMBER, 
+	"CHANNEL_NAME" VARCHAR2(20 BYTE), 
+	"COST_FIXED" NUMBER, 
+	"COST_VARIABLE" NUMBER, 
+	"CUST_NUMBER" NUMBER, 
+	"DISCOUNT_VALUE" NUMBER, 
+	"ORDER_KEY" NUMBER, 
+	"ORDER_STATUS" VARCHAR2(200 BYTE), 
+	"PROD_ITEM_KEY" VARCHAR2(20 BYTE), 
+	"REVENUE" NUMBER, 
+	"TIME_BILL_DT" DATE, 
+	"TIME_PAID_DT" DATE, 
+	"UNITS" NUMBER
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+  
+REM INSERTING into CLOUD_D_CUSTOMERS
+SET DEFINE OFF;
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('03/01/74','DD/MM/RR'),'695','F','Married','Gary Schultz','224','Active Singles','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'795','F','Married','Wesley Acland','916','Students','TYPE 1');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'708','M','Married','Jemma Lusty','2381','Students','TYPE 2');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'633','M','Single','Will Hayden','5100','Students','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'601','M','Widow','Mike Sachs','4625','Rural based','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'615','M','Single','John Miller','3355','Urban based','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'657','M','Divorced','Renee Shillingford','5716','Seniors','TYPE 5');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'700','M','Divorced','Mirza Aslam','6601','Urban based','TYPE 4');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'695','F','Single','Awesome Azul','68','Rural based','TYPE 1');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'769','M','Divorced','Tobias Hartmann','6545','Urban based','TYPE 4');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'680','M','Divorced','Louise Wessbecher','7690','Students','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'809','M','Married','Beto Avendaño','4035','Baby Boomers','TYPE 4');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'784','M','Divorced','Hallie Conway','7798','Urban based','TYPE 1');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'731','M','Married','Ijoe Milijoe','3582','Students','TYPE 1');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'699','M','Widow','Philina Chan','1535','Baby Boomers','TYPE 4');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'601','M','Divorced','Sam Abriol','6999','Urban based','TYPE 5');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'698','M','Divorced','Kerrion Nash','4435','Others','TYPE 4');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'701','M','Married','Richelle Gonzalez','8979','Rural based','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'637','M','Divorced','Matt Vetter','9292','Students','TYPE 1');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'722','M','Married','El Ale','9343','Urban based','TYPE 3');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'600','M','Married','Leo Newcomer','641','Seniors','TYPE 2');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'696','M','Widow','Dimas Wirabuana','8258','Others','TYPE 4');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'817','M','Married','Ali Alkubaisi','1989','Others','TYPE 1');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'719','M','Widow','Salomon Sierra','7750','Urban based','TYPE 2');
+Insert into CLOUD_D_CUSTOMERS (CUST_BIRTH_DATE,CUST_CREDIT_RATE,CUST_GENDER,CUST_MARITAL_STATUS,CUST_NAME,CUST_NUMBER,CUST_SEGMENT,CUST_TYPE) values (to_date('20/08/18','DD/MM/RR'),'795','M','Single','Nick Hamden','1657','Others','TYPE 4');
+REM INSERTING into CLOUD_D_GEOGRAPHY
+SET DEFINE OFF;
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('117','BALHAM HIGH ROAD','3574','London','GBR','United Kingdom','SW12 9','EN');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('72','Wyoming Ave','7418','Beirut','LBN','Lebanon','LB176597','Beirut');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('269','Executive Dr','6485','Zagreb','HRV','Croatia','HR101415','Grad Zagreb');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('8808','Northern Blvd','14390','Tijuana','MEX','Mexico','ME101654','Baja California');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('404','Broxton Ave','6358','Osaka','JPN','Japan','JP101675','Osaka');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('26921','Vassar St','8613','Port Louis','MUS','Mauritius','MU11583',null);
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('6','W Cornelia Ave','12569','Maputo','MOZ','Mozambique','MO11546','Maputo');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('9','9th St #4','13250','San Jose','CRI','Costa Rica','CR101665','San Jose');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('82136','Post Rd','14247','Sao Paulo','BRA','Brazil','BR131660','Sao Paulo');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('98247','Russell Blvd','13055','Suva','FJI','Fiji','FJ101586','Central');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('128','HIGH STREET NORTH','3600','London','GBR','United Kingdom','E6 2','EN');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('43','Nolan St','5385','Algiers','DZA','Algeria','DZ11666','Alger');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('9','34th Ave #69','13282','La Paz','BOL','Bolivia','BO101661','La Paz');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values (null,null,'1350','Svendborg','DNK','Denmark','DN101403','Syddanmark');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('80289','Victory Ave #9','13837','Lima','PER','Peru','PE11541','Lima');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('60481','N Clark St','6438','St. Petersburg','RUS','Russia','RU126696','City of St. Petersburg');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('1036','Malone Rd','9036','Hong Kong','HKG','Hong Kong S.A.R.','HK151509',null);
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('288','N 168th Ave #266','13223','Quito','ECU','Ecuador','EC101529','Pichincha');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('47','Hall St','8536','Donetsk','UKR','Ukraine','UK151688','Donets''k');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('7','Hall St','6790','Bogota','COL','Colombia','CO101655','Bogota');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('599','GUERRERO ST','3299','San Francisco','USA','United States','94110','California');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('2902','Edison Dr #278','6849','Johannesburg','ZAF','South Africa','ZA151697','Gauteng');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('6','Ackerman Rd','14242','Rio de Janeiro','BRA','Brazil','BR196660','Rio de Janeiro');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('1585','Salem Church Rd #59','14238','Sao Paulo','BRA','Brazil','BR206660','Sao Paulo');
+Insert into CLOUD_D_GEOGRAPHY (ADDRESS1,ADDRESS2,ADDR_KEY,CITY,COUNTRY_CODE,COUNTRY_NAME,POSTAL_CODE,STATE_PROV) values ('8855','North Ave','12445','Bucharest','ROU','Romania','RO11422','Bucharest');
+REM INSERTING into CLOUD_D_PRODUCTS
+SET DEFINE OFF;
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('MP3 Speakers System','BizTech','DigiTech 5D Mark2 Speaker X400 Silver','1293','Electronics','Accessories');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','FinFlex EOS Lens2/3'''' 17mm E100 Black','1167','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('7 Megapixel Digital Camera','FunPod','DigiTech Camera SLR Alpha C600Silver Grey','1089','Digital','Camera');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('Game Station','FunPod','SoundX 14 inch Silver','853','Games','Fixed');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('CompCell RX3','BizTech','PhoneCell GPS Phone 3.7 inch M930 Black','1536','Communication','Phones');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','PocketFun2/3'''' 17mm M280 White','1242','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('V5x Flip Phone','BizTech','PhoneCell PDA Wifi3.5-inch M200 Black','1520','Communication','Phones');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('Touch-Screen T5','BizTech','PhoneCell Touch Screen Unlocked M300 Gold','1517','Communication','Smart Phones');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('MPEG4 Camcorder','FunPod','PhoneCell Touch Screen without camera E100 Gold','1510','Digital','Camera');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('7 Megapixel Digital Camera','FunPod','7 Megapixel Digital Camera X600 Silver Grey','1057','Digital','Camera');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','DigiTech Touch XBox T400 Blue','774','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','DigiTech Optical XBox G70 Grey','886','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('Game Station','FunPod','DigiTech Power Adapter PP33 Black','755','Games','Fixed');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('7 Megapixel Digital Camera','FunPod','DigiTech Trendy Case X300 Black','776','Digital','Camera');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('MP3 Speakers System','BizTech','DigiTech 5D Mark2 Speaker M350 Silver','1302','Electronics','Accessories');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('KeyMax S-Phone','BizTech','PhoneCell SmartPhoneUnlocked 4.7 inches L550 White','1564','Communication','Smart Phones');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','KeyMax USB Keyboard E90 Silver','895','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('HomeCoach 2000','FunPod','CompCell DesignJet Game X40 Grey','699','Games','Fixed');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('MaxiFun 2000','FunPod','CompCell Ink Ject Gun F300 E100 Grey','679','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('Bluetooth Adaptor','BizTech','CompCell Color Ink Jet Printer X550 White','719','Electronics','Accessories');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('HomeCoach 2000','FunPod','CompCell Fax Ninja FT300Grey','677','Games','Fixed');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('MicroPod 60Gb','BizTech','MaxiFun 1/3'''' 8.5mm E200 Black','1222','Electronics','Audio');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','PocketFun1/3'''' 8.5mm M380 White','1241','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('PocketFun ES','FunPod','CompCell Photo Ink Ject Gamer X300 White','723','Games','Portable');
+Insert into CLOUD_D_PRODUCTS (PRODUCT,PROD_BRAND,PROD_ITEM_DSC,PROD_ITEM_KEY,PROD_LOB,PROD_TYPE) values ('Bluetooth Adaptor','BizTech','CompCell Plain Paer Copier X300Grey','693','Electronics','Accessories');
+REM INSERTING into CLOUD_F_BILL_REV
+SET DEFINE OFF;
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('3574','Catalog','33.12','15.02','224','43.23','3019164','5-Paid','1293','603.09',to_date('20/08/18','DD/MM/RR'),to_date('01/09/12','DD/MM/RR'),'12');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('7418','Store','207.05','80.04','916','90.04','3228082','4-Billed','1167','2515.5',to_date('02/06/13','DD/MM/RR'),to_date('04/07/13','DD/MM/RR'),'10');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('6485','Store','45.02','20.2','2381','0','3409911','9-On Hold','1089','665.71',to_date('20/07/13','DD/MM/RR'),to_date('21/08/13','DD/MM/RR'),'7');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('14390','Store','158.62','19.75','5100','0','2778644','4-Billed','853','1635.48',to_date('06/05/12','DD/MM/RR'),to_date('22/06/12','DD/MM/RR'),'10');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('6358','Online','57.06','18.76','4625','0','2753200','3-Shipped','1536','755.19',to_date('07/05/12','DD/MM/RR'),to_date('21/06/12','DD/MM/RR'),'12');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('8613','Online','97.45','13.65','3355','55.86','2736310','2-Fulfilled','1242','1171.74',to_date('25/05/12','DD/MM/RR'),to_date('27/06/12','DD/MM/RR'),'10');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('12569','Store','88.87','18.76','5716','0','3592956','3-Shipped','1520','1697.13',to_date('16/09/13','DD/MM/RR'),to_date('28/10/13','DD/MM/RR'),'18');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('13250','Catalog','99','19.78','6601','55.49','3977610','6-Cancelled','1517','1242.8',to_date('06/09/12','DD/MM/RR'),to_date('10/10/12','DD/MM/RR'),'12');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('14247','Store','84.45','22.78','68','52.86','827243','9-On Hold','1510','886.18',to_date('10/01/13','DD/MM/RR'),to_date('10/02/13','DD/MM/RR'),'8');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('13055','Online','69.32','27.65','6545','0','3720686','9-On Hold','1057','490.16',to_date('26/12/13','DD/MM/RR'),to_date('10/02/14','DD/MM/RR'),'6');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('3600','Online','177.65','36.99','7690','36.99','3552912','4-Billed','774','1546.59',to_date('06/09/13','DD/MM/RR'),to_date('12/10/13','DD/MM/RR'),'8');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('5385','Store','308.65','9.89','4035','52.35','3256476','3-Shipped','886','1031.89',to_date('01/06/13','DD/MM/RR'),to_date('20/07/13','DD/MM/RR'),'3');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('13282','Catalog','130.55','13.65','7798','130.55','3777656','3-Shipped','755','1456.21',to_date('20/11/13','DD/MM/RR'),to_date('28/12/13','DD/MM/RR'),'11');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('1350','Online','36.78','0','3582','0','3541126','2-Fulfilled','776','845.92',to_date('07/10/13','DD/MM/RR'),to_date('08/11/13','DD/MM/RR'),'20');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('13837','Store','157.39','10.25','1535','0','3006753','1-Booked','1302','1749.89',to_date('01/08/12','DD/MM/RR'),to_date('18/09/12','DD/MM/RR'),'10');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('6438','Store','88.46','18.76','6999','53.7','3956422','4-Billed','1564','899.55',to_date('09/10/12','DD/MM/RR'),to_date('10/11/12','DD/MM/RR'),'8');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('9036','Online','72.98','17.64','4435','46.58','538617','9-On Hold','895','711.13',to_date('01/01/12','DD/MM/RR'),to_date('31/01/12','DD/MM/RR'),'9');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('13223','Store','77.77','31.86','8979','31.86','658275','6-Cancelled','699','824.37',to_date('08/02/12','DD/MM/RR'),to_date('10/03/12','DD/MM/RR'),'12');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('8536','Store','44.87','22.2','9292','22.2','905044','3-Shipped','679','561.96',to_date('07/02/13','DD/MM/RR'),to_date('23/03/13','DD/MM/RR'),'10');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('6790','Catalog','30.3','5.71','9343','5.71','3981934','1-Booked','719','434.68',to_date('22/09/12','DD/MM/RR'),to_date('30/10/12','DD/MM/RR'),'12');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('3299','Catalog','35.77','35.77','641','35.77','851080','5-Paid','677','599.7',to_date('30/01/13','DD/MM/RR'),to_date('04/03/13','DD/MM/RR'),'10');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('6849','Catalog','45.07','32.67','8258','32.67','850946','5-Paid','1222','606.37',to_date('30/01/13','DD/MM/RR'),to_date('19/03/13','DD/MM/RR'),'9');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('14242','Catalog','8.67','13.32','1989','12.21','3444037','4-Billed','1241','255.82',to_date('11/08/13','DD/MM/RR'),to_date('10/09/13','DD/MM/RR'),'21');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('14238','Catalog','10.09','22.78','7750','8.17','677130','4-Billed','723','136.19',to_date('27/02/12','DD/MM/RR'),to_date('16/04/12','DD/MM/RR'),'9');
+Insert into CLOUD_F_BILL_REV (ADDR_KEY,CHANNEL_NAME,COST_FIXED,COST_VARIABLE,CUST_NUMBER,DISCOUNT_VALUE,ORDER_KEY,ORDER_STATUS,PROD_ITEM_KEY,REVENUE,TIME_BILL_DT,TIME_PAID_DT,UNITS) values ('12445','Store','52.88','19.87','1657','11.94','4171064','6-Cancelled','693','666.56',to_date('10/11/12','DD/MM/RR'),to_date('12/12/12','DD/MM/RR'),'13');
+
+--------------------------------------------------------
+--  Constraints for Table CLOUD_D_CUSTOMERS
+--------------------------------------------------------
+
+  ALTER TABLE CLOUD_D_CUSTOMERS MODIFY ("CUST_NUMBER" NOT NULL ENABLE);
+  
+--------------------------------------------------------
+--  Constraints for Table CLOUD_F_BILL_REV
+--------------------------------------------------------
+
+  ALTER TABLE CLOUD_F_BILL_REV MODIFY ("REVENUE" NOT NULL ENABLE);
+  ALTER TABLE CLOUD_F_BILL_REV MODIFY ("PROD_ITEM_KEY" NOT NULL ENABLE);
+  ALTER TABLE CLOUD_F_BILL_REV MODIFY ("ORDER_KEY" NOT NULL ENABLE);
+  ALTER TABLE CLOUD_F_BILL_REV MODIFY ("CUST_NUMBER" NOT NULL ENABLE);
+  ALTER TABLE CLOUD_F_BILL_REV MODIFY ("ADDR_KEY" NOT NULL ENABLE);
+
+```
+
+Keep in mind we are going to work with a Star Schema model built with these tables we have just created:
+
+- CLOUD_F_BILL_REV (Fact Table)
+- CLOUD_D_CUSTOMERS 
+- CLOUD_D_PRODUCTS
+- CLOUD_D_GEOGRAPHY
+
+Also, we will create 2 other dimension tables using Cloud Data Modeler:
+
+- CLOUD_D_TIME 
+- CLOUD_D_ORDERS 
+
+After creating the tables, you should be able to see them on SQL Developer Web:
+
+![TablesSQLDev](https://i.imgur.com/7vvQe1U.png)
+
+A star schema example is displayed below:
+
+![StarSchema](https://i.imgur.com/5df4t6j.gif)
+
+### Dimensional Modeling
+
+Your job here will be creating  the Star Schema Modeling on BI Cloud Modeler from a database with the required tables and columns. First step is to login to OAC and click on the upper-right menu, and choosing to be redirected to the Data Modeler page. 
+
+![ToDataModeler](https://i.imgur.com/nmsd9ao.png)
+
+Create a New Data Model
+
+![CreateModel](https://i.imgur.com/jr6x2YF.png)
+
+And choose the connection you have just created:
+
+![ChooseConnection](https://i.imgur.com/bDQt8io.png)
+
+So you will have to define which are the Fact and Dimension Tables, this is pretty intuitive and can be done in a lot of different ways, like drag-and-dropping or using the Add Buttons:
+
+![InsertDimension](https://i.imgur.com/ZScHWs9.png)
+
+You will also have to indicate every join in the model. This is done by clickin the **Add Join** button.
+
+![AddJoin](https://i.imgur.com/YhExQtZ.png)
+
+After joining every table your model should look something like that:
+
+![JustJoined](https://i.imgur.com/ZYjmxKV.png)
+
+But there is still some problems: There are 2 dimension tables missing and we don't have any measure calculation running in the fact table. Let's create the measures first. Click **CLOUD_F_BILL_REV**.
+
+By choosing the aggregation type, OAC will begin to see the column as a measure. It is also possible to create new columns based on calculations and generate more complex results.
+
+![Aggregation](https://i.imgur.com/zGYHBfb.png)
+
+After defining the measure calculations, go back to the Model page and **Add a Time Dimension**. You will follow a simple wizard that will create a database table, a dimension and a hierarchy.
+
+![Wizard](https://i.imgur.com/JBEGDHO.png)
+
+For the orders dimension, you are going to create a View based on a database table. Go to **Database > Database Actions >Create View** and use the **SQL Query** below to generate the View.
+
+```sql
+SELECT
+"CLOUD_F_BILL_REV"."ORDER_KEY",
+"CLOUD_F_BILL_REV"."ORDER_STATUS",
+"CLOUD_F_BILL_REV"."TIME_BILL_DT",
+"CLOUD_F_BILL_REV"."TIME_PAID_DT",
+"CLOUD_F_BILL_REV"."CHANNEL_NAME"
+
+FROM
+"CLOUD_F_BILL_REV" 
+```
+
+By **Saving it** and **Adding to Model** you will have the model complete. It is recommended to change the names of the dimensions to keep the model simple and clear.
+
+![OrderDim](https://i.imgur.com/0fGHg9W.png)
+
+Your model will only be ready for consumption when you click the **Publish Model** button in the upper-right. As soon as you do it, users will be able to use the model to generate analysis and dashboards, for example.
+
+![Publish](https://i.imgur.com/jSdLkUc.png)
+
+### Creating Hierarchies
+
+To be added
+
+Data models > My products >Hierarchies
+
+Click in Detail e and change to LOB. Then add every hierarchy levels.
+
+Total > Type > LOB > Brand > Product > Detail
+
+
+
+### OBIEE Answers Example
+
+![a](https://i.imgur.com/EpGWHDH.png)
+
+OBIEE > New > Analysis > Select Subject Area > Your Data Model
+
+![b](https://i.imgur.com/uMLqorU.png)
+
+Create a Revenue by Region report.
+
+![c](https://i.imgur.com/Yzt2c7s.png)
+
+![d](https://i.imgur.com/PAuvWW9.png)
+
+![e](https://i.imgur.com/yVwhFff.png)
+
+![f](https://i.imgur.com/ifYxqym.png)
+
+![g](https://i.imgur.com/hXpCXoT.png)
+
+![h](https://i.imgur.com/yLxGhRP.png)
