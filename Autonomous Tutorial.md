@@ -302,6 +302,13 @@ begin
  );
 end;
 ```
+To check if all your data was uploaded, you can use the command below:
+
+```sql
+select count (*) from CREDIT_SCORING_100K
+```
+If your result is 100000, it means every row was correctly updated to the table.
+
 
 ### **Troubleshooting DBMS_CLOUD data loads**
 
