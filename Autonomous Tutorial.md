@@ -190,6 +190,14 @@ Run the script.
 
 Now you are ready to load data from the Object Store.
 
+To check if your credential was correctly created, use the command below:
+
+```sql
+SELECT * FROM all_credentials;
+```
+
+This will list every credential available on your Autonomous Database, along with its OWNER, CREDENTIAL_NAME, USERNAME, WINDOWS_DOMAIN, COMMENTS and if it is ENABLED or not. 
+
 ### Creating a Table to receive the data
 
 Next we will create a Table to where we are going to load all the data we have just uploaded to the Object Storage
