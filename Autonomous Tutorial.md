@@ -1,5 +1,7 @@
 # Autonomous DB Tutorial 
 
+
+
 ## OCI First Steps
 
 Oracle Cloud is available in some Regions.
@@ -14,6 +16,8 @@ storage and network IO out of the hypervisor and enables lower overhead and bare
 Over this basic infrastructure, we provide the PaaS and IaaS necessary for our customer to reach their goals. 
 
 ![OCI - Overview](https://i.imgur.com/NoDpBq7.png)
+
+
 
 ### Hands-on: Creating the Autonomous DB
 
@@ -70,17 +74,21 @@ Your results should look like the picture below:
 
 ![SampleQuery2](https://i.imgur.com/tWRkQRl.png)
 
-### DEMO: Connecting to the service through SQL Developer 
+#### DEMO: Connecting to the service through SQL Developer 
 
-### DEMO: Testing different connections (High, Medium, Low)
+#### DEMO: Testing different connections (High, Medium, Low)
 
-### DEMO: Loading data through SQL*Net
+#### DEMO: Loading data through SQL*Net
+
+
 
 ## Loading Data to ADW
 
 In this lab, you will be uploading files to the Oracle Cloud Infrastructure (OCI) Object Storage, creating sample tables, loading data into them from files on the OCI Object Storage, and troubleshooting data loads with errors.
 
 To load data from files in the cloud into your Autonomous Data Warehouse database, use the new PL/SQL DBMS_CLOUD package. The DBMS_CLOUD package supports loading data files from the following Cloud sources: Oracle Cloud Infrastructure Object Storage, Oracle Cloud Infrastructure Object Storage Classic, Amazon AWS S3 and Microsoft Azure Object Store.
+
+
 
 ### Navigate to Object Storage
 
@@ -100,7 +108,9 @@ Name your bucket  and click the **Create Bucket** button.
 
 ![lab4](https://i.imgur.com/NCnst5O.jpg)
 
-### **Upload Files to Your OCI Object Store Bucket**
+
+
+### Upload Files to Your OCI Object Store Bucket
 
 Click on your **bucket name** to open it:
 
@@ -114,7 +124,9 @@ Using the browse button or select all the files downloaded in the earlier step, 
 
 ![lab7](https://i.imgur.com/fSa78SX.jpg)
 
-### **Copy the URL for the Files in Your OCI Object Storage**
+
+
+### Copy the URL for the Files in Your OCI Object Storage
 
 Copy following base URL that points to the location of your files staged in the OCI Object Storage. The simplest way to get this URL is from the "Object Details" in the right hand side ellipsis menu in the Object Store.
 
@@ -132,7 +144,9 @@ https://objectstorage.<region_name>.oraclecloud.com/n/<tenant_name>/b/<bucket_na
 
 **Save** the base URL you copied in a note. We will use the base URL in following steps.
 
-### **Creating an Object Store Auth Token**
+
+
+### Creating an Object Store Auth Token
 
 To load data from the Oracle Cloud Infrastructure(OCI) Object Storage you will need an OCI user with the appropriate privileges to read data (or upload) data to the Object Store. The communication between the database and the object store relies on the Swift protocol and the OCI user Auth Token.
 
@@ -160,6 +174,8 @@ The new Auth Token is displayed. Click **Copy** to copy the Auth Token to the cl
 *Note: You can't retrieve the Auth Token again after closing the dialog box.*
 
 ![lab16](https://i.imgur.com/ZqlaVGo.jpg)
+
+
 
 ### Create a Database Credential for Your User
 
@@ -197,6 +213,8 @@ SELECT * FROM all_credentials;
 ```
 
 This will list every credential available on your Autonomous Database, along with its OWNER, CREDENTIAL_NAME, USERNAME, WINDOWS_DOMAIN, COMMENTS and if it is ENABLED or not. 
+
+
 
 ### Creating a Table to receive the data
 
@@ -296,7 +314,9 @@ CREATE TABLE admin.credit_scoring_100k
      grant select any table to public;
 ```
 
-### **Loading Data Using the PL/SQL Package, DBMS_CLOUD**
+
+
+### Loading Data Using the PL/SQL Package, DBMS_CLOUD**
 
 It is possible to use the DBMS_CLOUD package to load the data directly form object storage to the table. This is the preferred choice for any load automation.
 
@@ -318,7 +338,8 @@ select count (*) from CREDIT_SCORING_100K
 If your result is 100000, it means every row was correctly updated to the table.
 
 
-### **Troubleshooting DBMS_CLOUD data loads**
+
+### Troubleshooting DBMS_CLOUD data loads**
 
 Connected as your user in SQL Developer, run the following query to look at past and current data loads.
 
@@ -334,6 +355,8 @@ Run the following query to see the load that errored out.
 select * from user_load_operations where status='FAILED';
 ```
 
+
+
 ## Using Oracle Machine Learning
 
 ### Creating OML Users 
@@ -348,14 +371,222 @@ Select Administration and `Manage Oracle ML Users`.
 
 Log in as admin user and password that you assigned when you created the instance and Create new ML user. You will receive shortly an e-mail with your credentials and the link to the Oracle Machine Learning webpage.
 
+
+
 ### Working with Zeppelin Notebook for Data Mining 
 
 - Login into OML
 - Load a notebook
 - Explore Zeppelin Notebooks features
 
+
+
 ##  Working with ATP and Node.js
 
-You can find the ATP guide here:
+For this example we are going to create a website running on Node.js and connect it to an Autonomous Transaction Processing Database. All the requests performed by the website are going to be sent directly to the database.
 
-https://github.com/gustavogaspar/workshops/blob/master/WorkshopGuide.pdf
+For this practice we are going to need:
+
+- An Autonomous Transaction Processing instance (1OCPU)
+- A Virtual Cloud Network
+- A Linux Compute Instance
+
+### Setting up the Virtual Cloud Network
+
+We are not going through the ADB instance creation all again, if you have any doubts just go back to **Hands-on: Creating the Autonomous DB** 
+
+To create the Virtual Cloud Network, you should go to the **hamburger menu -> Networking -> Virtual Cloud Network** (we usually call them VCNs)
+
+![img](https://i.imgur.com/AyY81E0.png)
+
+Then, you can just choose the **Networking Quickstart** option
+
+![img](https://i.imgur.com/4rcWGjp.png)
+
+Choose the **VCN with Internet Connectivity** and click **Start Workflow**
+
+A wizard will be launched, simply define a name for the VCN and configure the CIDR Block using the values on the examples (just below the boxes)
+
+![img](https://i.imgur.com/HfH0l5Y.png)
+
+Click **Next** and your VCN will be created, along with a Private and a Public Subnet. Since we are going to connect to our Linux instance via ssh and via internet, we are going to use the Public Subnet when we're given the choice.
+
+Click **View Virtual Cloud Network** to check the network details.
+
+Since we are going to use some ports on this network, we will have to enable the connection via those ports. Scroll down to **Resources -> Security Lists** and choose the **Default Security List for your VCN**
+
+![img](https://i.imgur.com/hwr5wb3.png)
+
+Click **Add Ingress Rules** and unlock the ports **80,1522,443,3000,8080** That's all we are going to need in this example.
+
+![img](https://i.imgur.com/xORwPl8.png)
+
+After clicking Add Ingress Rules, just check if you have 8 total Ingress Rules. We are now ready to create our Linux Virtual Machine.
+
+### Setting up the Linux VM
+
+To create the Linux VM, you will have to go to the Compute Instances console. You can find it at the **Hamburger Menu -> Compute -> Instance**
+
+![img](https://i.imgur.com/DP52OaL.png)
+
+Click **Create Compute Instance** and a Wizard will show up. 
+
+- Choose the **Oracle Linux 7.7** distribution under the Oracle Image tab 
+- Set the Intance Shape to **VM.Standard.E2.1**
+- Make sure that you are using your **VCN**, and do not forget to choose the **Public Subnet** and to **Assign a Public IP address** to your Linux Instance
+- Upload a ssh .pub file to use for connecting with your VM
+
+After sending the request to create your VM, it should take some minutes to get it running (usually no more than 3 min). You will be able to find the **Public IP Address** on the **Instance Details**
+
+![img](https://i.imgur.com/69wTPey.png)
+
+We will use this Public IP Address to ssh into the OS and host our website. The code is ready and available to be cloned from our Github repository.
+
+So you are going to need tools to ssh into the instance and transfer files via FTP. I am going to use [MobaXTerm](https://mobaxterm.mobatek.net/), but feel free to use other alternatives like Putty and WinSCP, for example.
+
+Log into your instance by using:
+
+- Your Public IP Address
+- The opc username
+- Port 22
+- Your .ppk key file
+
+![img](https://i.imgur.com/r3dJLHZ.png)
+
+After connecting to the VM, let's change to the root user and update the OS:
+
+```bash
+sudo su
+yum update -y
+```
+
+This step may take a couple minutes to finish.
+
+Install git, which we are going to use to clone the website code:
+
+```bash
+yum install -y git
+```
+
+Create a directory and browse to it, then clone the git project with all the code needed:
+
+```bash
+mkdir /home/dev
+cd /home/dev
+git clone https://github.com/gustavogaspar/workshops.git
+```
+
+Alter the instancePrep.sh permissions so you can run this script. This will prepare all the environment for us.
+
+```bash
+chmod 775 workshops/instancePrep.sh
+source workshops/instancePrep.sh
+```
+
+Browse to the /workshop/lib directory and install the Oracle Database Instant Client 19.x by running:
+
+```bash
+cd workshops/lib
+yum -y install oracle-instantclient19.3-basic-19.3.0.0.0-1.x86_64.rpm
+```
+
+Now we are going to connect our VM to the Autonomous DB services
+
+### Connecting to the ADB
+
+Every time we connect to the Autonomous Database we need to use the Wallet file. This is a file containing the credentials needed to create a connection to the ADB.
+
+Open your **Autonomous Transaction Processing** and click **Database Connection**. This will open a window where you are able to download the credentials. Save them as a .zip file.
+
+![img](https://i.imgur.com/BraZog5.png)
+
+
+
+Connect via FTP to your environment and **copy the whole .zip file**
+
+![img](https://i.imgur.com/WxczE1I.png)
+
+Copy your wallet file to the Instant Client folder and unzip the files. Don't forget to put your wallet name in the code
+
+```bash
+cp /home/opc/<WalletName> /usr/lib/oracle/19.3/client64/lib/network/admin/
+
+cd /usr/lib/oracle/19.3/client64/lib/network/admin/
+unzip <WalletName> 
+```
+
+Start the Instant Client services by running:
+
+```bash
+sh -c "echo /usr/lib/oracle/19.3/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
+ldconfig
+```
+
+Return to the directory created in the Instance configuration and install the npm packages:
+
+```bash
+cd /home/dev/workshops/backend
+npm install
+```
+
+Edit the db.connect.js file according to your database configuration:
+
+```bash
+vim src/dbconnect.js
+```
+
+After opening the file, click **i** to enter the insert mode. Update your **database password** and **connectionString** (we will use your DatabaseName_TP). After editing the file, hit **ESC** and then **:wq ENTER** to save your updates and quit. We are now able to start the server:
+
+```bash
+npm start & 
+```
+
+Press **ENTER** to go back to terminal without ending the process.
+
+To verify if your service is running you may use the command:
+
+```bash
+ps -a
+```
+
+
+
+### Frontend configuration
+
+The backend is all configured, so all we need is to edit the frontend and our application will be ready to run.
+
+Browse to the dev directory and edit the app.js file:
+
+```bash
+cd /home/dev
+vim /home/dev/workshops/frontend/app.js
+```
+
+You will have to input you Public IP Address, so identify the string, use **i** to enter insert mode and when finished use **ESC :wq ENTER**
+
+Finally we are going to remove the content from nginx html folder and copy our frontpage into it:
+
+```bash
+rm -rf /usr/share/nginx/html/*
+cp /home/dev/workshops/frontend/* /usr/share/nginx/html/
+```
+
+The next step is to open your browser and type the Public IP address of your VM. If everything is correct, you will see the page below:
+
+![img](https://i.imgur.com/lGQQVKx.png)
+
+
+
+Basically you're given 3 options:
+
+- Test your connection to the Database (mostly for troubleshooting)
+
+- By using Simple Oracle Document Access (SODA), creates a table named CARROS and inserts a BLOB into the database includiung a JSON payload.
+- Creates the table SERIES and inserts a simple record into the databse via SQL.
+
+Click each one of the buttons and see if your result is a positive status. Those commands will create 2 tables in the database and insert some information into the tables. It's interesting to connect to the database via SQL Developer Web after doing the inserts to query the database and check which kind of information we have just loaded into the database.
+
+If the data was added correctly, this is the end of our Tutorial. 
+
+## Congratulations !!!
+
