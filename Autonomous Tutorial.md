@@ -1,6 +1,6 @@
 # Autonomous DB Tutorial 
 
-
+**First of all, download all the required material [here](http://140.238.185.3/assets/files/workshop_files.zip)**
 
 ## OCI First Steps
 
@@ -74,11 +74,23 @@ Your results should look like the picture below:
 
 ![SampleQuery2](https://i.imgur.com/tWRkQRl.png)
 
-#### DEMO: Connecting to the service through SQL Developer 
 
-#### DEMO: Testing different connections (High, Medium, Low)
 
-#### DEMO: Loading data through SQL*Net
+## Oracle Application Express
+
+Oracle Application Express (APEX) is a low-code development platform that enables you to build scalable, secure enterprise apps, with world-class features, that can be deployed anywhere. APEX is included on every Autonomous Database deployment, and is enabled by a single click.
+
+For this Hands-on Lab I am going to use a guide included in the [Workshop material](http://140.238.185.3/assets/files/workshop_files.zip) (same download available in the first paragraph of this page).
+
+My recommendation is to do the first 2 labs on this material:
+
+- Lab 100 - Provision your Autonomous Database (Go straight to pg 17)
+- Lab 200 - Adding Spatial to an APEX Application
+- The other labs if you feel like you want to dive deeper into APEX. 
+
+Feel free to skip the introduction and begin on **Page 17 - Prepare the APEX Workspace** since the ADB instance is already created. (APEX lab -> ATP_APEX_HOL_TRIAL_V1.1_PART1_OAC.pdf) 
+
+PS: Follow every step of the guide, using the same Workspace Name otherwise the Import App process will fail. Also, you can skip the Create an Oracle Analytics Cloud exercise (pgs 22-24).
 
 
 
