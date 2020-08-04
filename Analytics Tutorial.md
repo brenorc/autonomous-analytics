@@ -651,7 +651,7 @@ Click **OK.**
 
 A simple way to test the connection of the RPD to the ADW in the cloud is to perform an analysis in the CAB. This requires a simple Business Model and a Presentation Subject Area.
 
-**Right-click ** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
+**Right-click** anywhere on the Business Model and Mapping panel and choose **New Business Model**.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/5cda64c12bd9ca972825f93aefb4fb59/5cda64c12bd9ca972825f93aefb4fb59.png)
 
@@ -699,7 +699,7 @@ Make sure there are no errors (Warnings are OK) and click **Close.**
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/0163ce5b0a7caf181b3956c4e0b44950/0163ce5b0a7caf181b3956c4e0b44950.png)
 
-In the **File** menu click **Save **. click **No** for **Check Global Consistency. **From the **File menu, **click **Exit. ** 
+In the **File** menu click **Save**. click **No** for **Check Global Consistency.** From the **File menu,** click **Exit.** 
 
 ### **Summary** 
 
