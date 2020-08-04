@@ -491,9 +491,6 @@ Create a Revenue by Region report.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/598ef48adb6983ad6e806baabe0ec445/rpd.PNG)
 
-### **Última Validação: Agosto, 2019 - versão: OAC Dev Client Tool 105.3 e OAC 105.3**
-
-
 
 ### **Creating a RPD Connection between ADW and RPD**
 
@@ -511,15 +508,15 @@ Example:
 
 The examples in this post use a Command Prompt (CMD) window.
 
-Set an **CRED_LOC ** environment variable to the location of the ADW credentials folder.
+Set an **CRED_LOC** environment variable to the location of the ADW credentials folder.
 
-SET CRED_LOC = <**ADW credentials folder **>
+SET CRED_LOC = <**ADW credentials folder**>
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
 
 # **Downloading and Preparing OAC Developer Client Tool**
 
-You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html) ** for details on downloading the tool.
+You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html)** for details on downloading the tool.
 
  
 
@@ -541,9 +538,9 @@ After downloading, unzip the file and run the installer. Enter the Oracle home p
 
  
 
-**Note: **Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
+**Note:** Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
 
-Set an **OAC_HOME **environment variable to the location of the OAC Developer Tool installation folder.
+Set an **OAC_HOME** environment variable to the location of the OAC Developer Tool installation folder.
 
 SET OAC_HOME = <**The OAC installation directory**> 
 
@@ -591,7 +588,7 @@ Enter a **Name** and **Location** (by default it is filled, but can be changed),
 
 ### Importing a Physical Database
 
-NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name **, enter the **User Name** and **Password** of the database and click **Next**.
+NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name**, enter the **User Name** and **Password** of the database and click **Next**.
 
 Below is an example of *Connect Descriptor*. See [**Connect Descriptor Descriptions**](https://docs.oracle.com/database/121/NETRF/tnsnames.htm#NETRF265) for additional details.
 
@@ -629,13 +626,13 @@ Rows count is displayed.
 
 ### **Preparing the RPD to upload to OAC**
 
-Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection ** for Console Connection in Data Visualization.
+Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection** for Console Connection in Data Visualization.
 
 You can check the options to activate the RPD connection in OAC on post **[OAC - Upload ADW Wallet e Criar Console Connection e Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)**
 
 ### Using the Externalize Connection option
 
-As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition .html # GUID-40474084-5325-4177-A4AD-C2D570E588B4) ** for more details.
+As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition.html#GUID-40474084-5325-4177-A4AD-C2D570E588B4)** for more details.
 
 **Open** the ADW connection pool. Right-click **Connection Pool** and then **Properties.**
 
