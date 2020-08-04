@@ -514,7 +514,7 @@ SET CRED_LOC = <**ADW credentials folder**>
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
 
-# **Downloading and Preparing OAC Developer Client Tool**
+### **Downloading and Preparing OAC Developer Client Tool**
 
 You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html)** for details on downloading the tool.
 
@@ -561,7 +561,7 @@ copy *%CRED_LOC%*.ora % OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
 
  
 
-# Creating an ADW data source on RPD
+### Creating an ADW data source on RPD
 
 In this part we will create a new repository (RPD) using the OAC Dev Tool for the ADWC connection. See **[Creating a Repository Using the Oracle BI Administration Tool](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/bi/bi1221/rpd/rpd.html)** for more Details.
 
