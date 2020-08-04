@@ -1,4 +1,4 @@
-Oracle Analytics Cloud Tutorial
+# Oracle Analytics Cloud Tutorial
 
 This guide was built to be used as a complement to the Oracle Analytics Cloud Hand-on Practice provided by Oracle Alliances & Channels. Not every step will be detailed here, but you can use it to check the main activities and replicate some labs in the future. I am always open to suggestions on how the workshops can be improved. Reach me at breno.comin@oracle.com if you want to talk about it.
 
