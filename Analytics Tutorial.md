@@ -1,4 +1,4 @@
-# Oracle Analytics Cloud Tutorial
+Oracle Analytics Cloud Tutorial
 
 This guide was built to be used as a complement to the Oracle Analytics Cloud Hand-on Practice provided by Oracle Alliances & Channels. Not every step will be detailed here, but you can use it to check the main activities and replicate some labs in the future. I am always open to suggestions on how the workshops can be improved. Reach me at breno.comin@oracle.com if you want to talk about it.
 
@@ -486,3 +486,221 @@ Create a Revenue by Region report.
 ![g](https://i.imgur.com/hXpCXoT.png)
 
 ![h](https://i.imgur.com/yLxGhRP.png)
+
+
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/598ef48adb6983ad6e806baabe0ec445/rpd.PNG)
+
+### **Última Validação: Agosto, 2019 - versão: OAC Dev Client Tool 105.3 e OAC 105.3**
+
+
+
+### **Creating a RPD Connection between ADW and RPD**
+
+Now we are going to create a RPD repository to model a Database into Analytics
+
+Edit the***sqlnet.ora\*** file and update the wallet location with the address where it was saved.
+
+WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="< **Your Client Credentials Folder** >")))
+
+Example:
+
+**WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="C:\Oracle\ADW\Wallet_DB001")))**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/52edb48e2128d4639fc11bf0e3f40e9e/52edb48e2128d4639fc11bf0e3f40e9e.png)
+
+The examples in this post use a Command Prompt (CMD) window.
+
+Set an **CRED_LOC ** environment variable to the location of the ADW credentials folder.
+
+SET CRED_LOC = <**ADW credentials folder **>
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
+
+# **Downloading and Preparing OAC Developer Client Tool**
+
+You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html) ** for details on downloading the tool.
+
+ 
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/fca84d67eb507dfbf605dd2bf34edc58/fca84d67eb507dfbf605dd2bf34edc58.png)
+
+ 
+
+Download the OAC Developer Client Tool. It is important to check which version of the CAB you are using. This information can be checked in the My Services console in the instance information.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/0f5af87e29f217f80490aee732b0ece7/0f5af87e29f217f80490aee732b0ece7.png)
+
+After downloading, unzip the file and run the installer. Enter the Oracle home path, where the OAC Developer tool will be saved, for example *C:\Oracle\OACDevTool*. Finish the installation.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/c2d938bd87781e1b1986658429a57730/c2d938bd87781e1b1986658429a57730.png)
+
+ 
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/9b19786cdfe509ffe5898f0bea1d3a35/9b19786cdfe509ffe5898f0bea1d3a35.png)
+
+ 
+
+**Note: **Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
+
+Set an **OAC_HOME **environment variable to the location of the OAC Developer Tool installation folder.
+
+SET OAC_HOME = <**The OAC installation directory**> 
+
+
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/9552e4b903f83997e425303b3c7554f8/9552e4b903f83997e425303b3c7554f8.png)
+
+
+
+The Developer Client Tool expects the network configuration files to be in the directory
+% OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
+
+Copy the *sqlnet.ora* and *tnsnames.ora* files from the ADW credentials folder to the folder above.
+
+copy *%CRED_LOC%*.ora % OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/e8c0499103b9d9b0c4fb8feec332de95/e8c0499103b9d9b0c4fb8feec332de95.png)
+
+ 
+
+# Creating an ADW data source on RPD
+
+In this part we will create a new repository (RPD) using the OAC Dev Tool for the ADWC connection. See **[Creating a Repository Using the Oracle BI Administration Tool](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/bi/bi1221/rpd/rpd.html)** for more Details.
+
+### Start the Oracle Analytics Developer Client Tool
+
+CD %OAC_HOME%\BI\BITOOLS\BIN
+ADMINTOOL.CMD
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/9b372ef9c96f25851e5522e6d02cc41b/9b372ef9c96f25851e5522e6d02cc41b.png)
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cf7230981dcd67279eb8733d0425d194/cf7230981dcd67279eb8733d0425d194.png)
+
+ 
+
+### Criando um novo repositório(RPD)
+
+On **File** menu, click on**New Repository.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/529397e39a57166c89884372881c7014/529397e39a57166c89884372881c7014.png)
+
+Enter a **Name** and **Location** (by default it is filled, but can be changed), select **Import Metadata Yes**, enter a password for **Repository Password** and click **Next.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/20be9f3e34646f669ef578807b07843d/20be9f3e34646f669ef578807b07843d.png)
+
+### Importing a Physical Database
+
+NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name **, enter the **User Name** and **Password** of the database and click **Next**.
+
+Below is an example of *Connect Descriptor*. See [**Connect Descriptor Descriptions**](https://docs.oracle.com/database/121/NETRF/tnsnames.htm#NETRF265) for additional details.
+
+**(description= (address=(protocol=tcps)(port=1522)(host=< Your Host >))(connect_data=(service_name=< Your Service Name >))(security=(ssl_server_cert_dn="CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US")) )**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/960653926ef013f29303d8a0fad4f7e1/960653926ef013f29303d8a0fad4f7e1.png)
+
+In **Select Metadata Types**, select the types of metadata you want to import and click **Next**.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/20228df87d7376ab20a4f9b3fdd5edaf/20228df87d7376ab20a4f9b3fdd5edaf.png)
+
+In the **Select Metadata Objects** panel, select a schema and tables that have joins in the database, for example, in the **SH** schema select the **CHANNELS** and **SALES** tables **Data Source View** and move to **Repository View**.
+
+On the Connection Pool screen, **check** the **Require fully qualified table names** and click **OK**.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/1e7a3c7672c12e55f32198966a8a0035/1e7a3c7672c12e55f32198966a8a0035.png)
+
+Click **Finish.**
+
+**Expand** the physical database and schema.
+
+Test the connection by right-clicking the **table** and selecting **Update Row Count**.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/15d63055b28b097c7b6692f196e72f1e/15d63055b28b097c7b6692f196e72f1e.png)
+
+Rows count is displayed.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/47fe1865fa5bd76363db8a59879235cc/47fe1865fa5bd76363db8a59879235cc.png)
+
+**Right-click** on the physical database and select **Rename**, for example ADW.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/585c35580cf763ac35f26b108a984e35/585c35580cf763ac35f26b108a984e35.png)
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/45b390d54e4f53bbc5c3d79935c8b235/45b390d54e4f53bbc5c3d79935c8b235.png)
+
+### **Preparing the RPD to upload to OAC**
+
+Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection ** for Console Connection in Data Visualization.
+
+You can check the options to activate the RPD connection in OAC on post **[OAC - Upload ADW Wallet e Criar Console Connection e Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)**
+
+### Using the Externalize Connection option
+
+As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition .html # GUID-40474084-5325-4177-A4AD-C2D570E588B4) ** for more details.
+
+**Open** the ADW connection pool. Right-click **Connection Pool** and then **Properties.**
+
+Check the option **Externalize Connection.**
+
+**Enter** the **Connection name** exactly as it is in the DV Console Connection in OAC (case-sensitive). For example: ADWDV
+
+Click **OK.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/799c246dda46dd59910ff27d1f6e97fc/799c246dda46dd59910ff27d1f6e97fc.png)
+
+### Creating a Business Model
+
+A simple way to test the connection of the RPD to the ADW in the cloud is to perform an analysis in the CAB. This requires a simple Business Model and a Presentation Subject Area.
+
+**Right-click ** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/5cda64c12bd9ca972825f93aefb4fb59/5cda64c12bd9ca972825f93aefb4fb59.png)
+
+Fill in the **Name** field, for example ADW.
+
+ **Uncheck** the option **Disabled** and click **OK.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/775a0edfa47e2795652effd48529fbbd/775a0edfa47e2795652effd48529fbbd.png)     
+
+**Drag** the tables from the Physical panel to the ADW business model. The tables appear below the model.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/1ef3e71081dd9259e1aca5bd0d8c4c61/1ef3e71081dd9259e1aca5bd0d8c4c61.png)
+
+**Click** with the right mouse button on the business model and choose **Business Model Diagram > Whole Diagram.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/a1ae0bb4b56227e970dc86d647e59029/a1ae0bb4b56227e970dc86d647e59029.png)
+
+If the tables were joined in the database using a foreign key, they appear joined in the business model.
+
+Otherwise, in the **Diagram** menu, create a **New Join** by selecting the **New Join tool** and drag the pointer from one table to another and click **OK**.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/3ec39ad9f9170eb646aa07cc402b2676/3ec39ad9f9170eb646aa07cc402b2676.png)
+
+**Close** the Business Model Diagram.
+
+### Creating a Presentation Subject Area
+
+Right-click and choose the option **Create Subject Areas for Logical Stars and Snowflakes.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/4f5a773c18c221ca25cde32195246c35/4f5a773c18c221ca25cde32195246c35.png)
+
+The business model is added to the **Presentation Layer**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/557945c875d9951db779d63ef5e2c90a/557945c875d9951db779d63ef5e2c90a.png)
+
+## Validating the RPD
+
+In the Tools menu select **Show Consistency Checker**.
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/d7e19a8e933cc98b142f066a21087ac0/d7e19a8e933cc98b142f066a21087ac0.png)
+
+Click **Check All Objects** .
+
+Make sure there are no errors (Warnings are OK) and click **Close.**
+
+![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/0163ce5b0a7caf181b3956c4e0b44950/0163ce5b0a7caf181b3956c4e0b44950.png)
+
+In the **File** menu click **Save **. click **No** for **Check Global Consistency. **From the **File menu, **click **Exit. ** 
+
+### **Summary** 
+
+The validated RPD can be uploaded to OAC using the steps in the [Upload Data Models to OAC documentation](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle -bi-enterprise-edition.html # GUID-2BEB60F6-986D-4A7A-9D63-EEE67083E98A). This post detailed the steps required to create a connection to the ADW (Autonomous Data Warehouse) using the OAC Client Developer tool on Windows. It also prepared a complete RPD for upload to OAC. See post **[OAC - Upload ADW Wallet and Create Console Connection and Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar- console-connection-e-replication-connection) ** for details on how to enable the RPD connection in OAC. For further details, visit the [Autonomous Data Warehouse](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/index.html) and [Analytics Cloud Pages](https: / /docs.oracle.com/en/cloud/paas/analytics-cloud/index.html)
