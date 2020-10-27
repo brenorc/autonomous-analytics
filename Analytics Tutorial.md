@@ -59,99 +59,87 @@ This is a sales history dataset full of transaction data. From the available var
 
 By answering these question the user is able to know superficially core Oracle Data Visualization concepts, such as filtering, dashboarding, creating calculations and more.
 
-## Data Flow + Machine Learning
 
-After trying out the 'front-end' of Oracle Analytics Cloud it is time to explore other practices and features. With Data Flow, we are able to create joins between different sources and logical operations with the data. Usually we will use it for ETL purposes , just keep in mind it is not as powerful as ODI (which can be provisioned on OCI as a free image - that means you will only pay for the Compute).
 
-Good news is that a Data Flow may imported with a .dva file, so we can take a look on a Machine Learning project completely created in OAC. For that, we will import the **Naive Bayes Apply-Attrition+Analysis.dva** (the file password is **Admin123**).
+## Connecting to Autonomous Data Warehouse
 
-You can check that you have imported:
+Oracle Autonomous Database is the most innovative cloud-native database available on the market today. This exercise will show every step needed to connect to this Data Source.
 
-- 1 Project
+### Creating an Autonomous Database
 
-![Proj](https://i.imgur.com/EiBTY9D.png)
+Access https://cloud.oracle.com and login with the credentials provided by the trainer
 
-- 3 Datasets
+![Cloud_login](https://i.imgur.com/c6aRDg5.png)
 
-![Dataset](https://i.imgur.com/qaSBd2S.png)
 
-- 3 Data Flows
 
-![Dataflow](https://i.imgur.com/4rP9e6R.png)
+Select Autonomous Data Warehouse in the Upper-left menu (aka hamburger menu) 
 
-First, we are going to explore the Naives-Bayes Attrition Training Data Flow. Opening the Data Flow, we can see that we have a pretty straightforward flow: an input, a model training, and an output:
+![Cloud_login2](https://i.imgur.com/ibxQ1tO.png)
 
-![Naives-Bayes](https://i.imgur.com/AuM2zSF.png)
+Create a new database. You will have to choose:
 
-For bringing data to the Data Flow, you will always use the **Add Data** option, the first one from the list. Other data preparation steps may be used, such as **Joins, Filters, Branchs and Custom Calculations**. An example of a more complex Data Flow is shown below:
+(For this example you can keep the default values)
 
-![ComplexDF](https://i.imgur.com/JGCgKvO.png)
+- The cloud compartment where it will be located.
+- The database name and its display name.
+- The workload type (ATP or ADW)
+- The deployment type (Serverless or Dedicated)
+- The CPU count and Storage
+- The password for the admin account
+- The license type (BYOL or New License)
 
-Going on with the Naives-Bayes Attrition Training example, first step selects the columns from the source dataset. This whole step may be prompted to select the data when the Data Flow runs, so a Flow is not exclusively used for a single data source.
+![Cloud_login3](https://i.imgur.com/nP4sAHl.png)
 
-![1stStep](https://i.imgur.com/ef2hQYX.png)
+Every time we connect to the Autonomous Database we need to use the Wallet file. This is a file containing the credentials needed to create a connection to the ADB.
 
-Second step is training a Machine Learning model using an algorithm provided by Oracle Analytics Cloud. In this case, it is a Naive-Bayes algorithm for Classification, used to analyze the history of people leaving the company (Attrition) and predict the behavior of all employees. Since the output is binary (Yes/No), a Binary Classifier is used, but there is also algorithms for **Numeric Predictions, Multi-classifiers and Clustering**, for example. You can set the algorithm parameters as you wish, as long as you keep Attrition as the target variable. This is what we want to predict: if someone is probably going to leave the company or not.
+Open your **Autonomous Data Warehouse** and click **Database Connection**. This will open a window where you are able to download the credentials. Save them as a .zip file.
 
-![2ndStep](https://i.imgur.com/SRbtqXV.png)
+![img](https://i.imgur.com/BraZog5.png)
 
-Last step is saving the model. When you run the Data Flow, the output of it will be a Machine Learning model, and you can edit its name and description.
 
-![3rdStep](https://i.imgur.com/mca5HBc.png)
 
-Data Flow can now be run and will perform every step in it. If there is need of building a big, complex flow, you can split it into smaller ones and run them as a **Sequence**. If one of those Data Flows fails, everything will be rolled back to the initial stage it was before the Sequence start.
+### Creating the connection
 
-![Success](https://i.imgur.com/Y3wTXWY.png)
+First of all, login into your Oracle Analytics Cloud account.
 
-When the Data Flow is completed, we can check our results on the Machine Learning tab.
+Click on **Create -> Connection**:
 
-![MLTab](https://i.imgur.com/cCF8uMJ.png)
+![image-20201027142612170](https://i.imgur.com/mbnLHH9.png)
 
-Machine Learning area will display every Model trained by OAC, and also give you managing options.
+Choose the **Oracle Autonomous Data Warehouse** connection type:
 
-![ML](https://i.imgur.com/ioPaZsE.png)
+![image-20201027143440775](https://i.imgur.com/HXU9EwK.png)
 
-By **right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
+Fill all the blanks with information related to your database environment: 
 
-![Model](https://i.imgur.com/uu502EY.png)
+- A name for your connection
+- The credential (just upload the wallet file)
+- A Username (Default user for ADB is admin)
+- A Password (Defined at ADB creation)
+- A service name (May be High, Medium or Low)
 
-As you can see, the automatically generated model does not have a very impressive performance. Having a Machine Learning model is not the end of the road for you. Now you are going to **Apply** this model to a dataset and generate a prediction.
+![image-20201027143823812](https://i.imgur.com/RCKxfiC.png)
 
-You can do it by opening the **Naive-Bayes Apply Model - Attrition Prediction** Data Flow and executing it. Basically, if you choose the Apply Model step of the flow, you can change details like Inputs and Outputs, but we are not going to change anything right now.
+You should receive a confirmation message like the one below:
 
-![MLApply](https://i.imgur.com/u8qfsN0.png)
+![image-20201027144254476](https://i.imgur.com/Y7gSyQj.png)
 
-The model training data flow saved a model as output. By applying the machine learning model to the dataset, the output si now another dataset, with all the original dataset columns and 2 more: PredictedValue and PredictedConfidence.
+Now it is time to **Create** a **Data Set**
 
-As soon as the data flow ends, you can search for the dataset on Data. In this example its name is **Attiction Predicted Data**.
+![image-20201027144349740](https://i.imgur.com/n4mZlLu.png)
 
-![MLData](https://i.imgur.com/emDKiFZ.png)
+Choose the connection that was just created
 
-If you haven't defined the metrics columns at the Data Flow level, you should do it on the **Prepare Tab**. Otherwise, you can begin exploring the data with Data Visualization. In my case I've chosen to create a custom calculation to count the predicted values. You can do it by **right-clicking My Calculations** and **Adding a Calculation**.
+![image-20201027144431726](https://i.imgur.com/6yfzs4Y.png)
 
-![AddCalc](https://i.imgur.com/MIfmS1G.png)
+Choose your Schema and Tables, and **Click the Add Button**
 
-The name can be CountPredict or any other, and you can choose between lots of logical and mathematical operators. A simple count will do the job here:
+![image-20201027144536833](https://i.imgur.com/wQcbYWD.png)
 
-```sql
-COUNT(<column name>)
-```
+After that we can explore all the data included on the database using the fundamentals we just learned on the Data Visualization section!
 
-![count](https://i.imgur.com/TeQDydP.png)
 
-By using the new CountPredict column as Values, PredictedAttrition as Colors and Department as Trellis Columns, a new visualization was generated. One that shows how many employees were predicted to leave and how many were not, grouped by the department where they work:
-
-![Viz](https://i.imgur.com/L042dEx.png)
-
-To take a look on a more advanced dashboard, it is possible to take a look at the project imported with the .dva file:
-
-![ProjectML](https://i.imgur.com/SI8t7CS.png)
-
-There is a lot of visualizations created, all of them could be explored, filtered and shared to other users.
-
-![MLDashboard](https://i.imgur.com/B1QM4h4.png)
-
-That's all for the Machine Learning practice!
 
 ## Dimensional Modeling
 
@@ -491,6 +479,9 @@ Create a Revenue by Region report.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/598ef48adb6983ad6e806baabe0ec445/rpd.PNG)
 
+### **Última Validação: Agosto, 2019 - versão: OAC Dev Client Tool 105.3 e OAC 105.3**
+
+
 
 ### **Creating a RPD Connection between ADW and RPD**
 
@@ -508,15 +499,15 @@ Example:
 
 The examples in this post use a Command Prompt (CMD) window.
 
-Set an **CRED_LOC** environment variable to the location of the ADW credentials folder.
+Set an **CRED_LOC ** environment variable to the location of the ADW credentials folder.
 
-SET CRED_LOC = <**ADW credentials folder**>
+SET CRED_LOC = <**ADW credentials folder **>
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
 
-### **Downloading and Preparing OAC Developer Client Tool**
+# **Downloading and Preparing OAC Developer Client Tool**
 
-You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html)** for details on downloading the tool.
+You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html) ** for details on downloading the tool.
 
  
 
@@ -538,9 +529,9 @@ After downloading, unzip the file and run the installer. Enter the Oracle home p
 
  
 
-**Note:** Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
+**Note: **Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
 
-Set an **OAC_HOME** environment variable to the location of the OAC Developer Tool installation folder.
+Set an **OAC_HOME **environment variable to the location of the OAC Developer Tool installation folder.
 
 SET OAC_HOME = <**The OAC installation directory**> 
 
@@ -561,7 +552,7 @@ copy *%CRED_LOC%*.ora % OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
 
  
 
-### Creating an ADW data source on RPD
+# Creating an ADW data source on RPD
 
 In this part we will create a new repository (RPD) using the OAC Dev Tool for the ADWC connection. See **[Creating a Repository Using the Oracle BI Administration Tool](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/bi/bi1221/rpd/rpd.html)** for more Details.
 
@@ -588,7 +579,7 @@ Enter a **Name** and **Location** (by default it is filled, but can be changed),
 
 ### Importing a Physical Database
 
-NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name**, enter the **User Name** and **Password** of the database and click **Next**.
+NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name **, enter the **User Name** and **Password** of the database and click **Next**.
 
 Below is an example of *Connect Descriptor*. See [**Connect Descriptor Descriptions**](https://docs.oracle.com/database/121/NETRF/tnsnames.htm#NETRF265) for additional details.
 
@@ -626,13 +617,13 @@ Rows count is displayed.
 
 ### **Preparing the RPD to upload to OAC**
 
-Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection** for Console Connection in Data Visualization.
+Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection ** for Console Connection in Data Visualization.
 
 You can check the options to activate the RPD connection in OAC on post **[OAC - Upload ADW Wallet e Criar Console Connection e Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)**
 
 ### Using the Externalize Connection option
 
-As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition.html#GUID-40474084-5325-4177-A4AD-C2D570E588B4)** for more details.
+As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition .html # GUID-40474084-5325-4177-A4AD-C2D570E588B4) ** for more details.
 
 **Open** the ADW connection pool. Right-click **Connection Pool** and then **Properties.**
 
@@ -648,7 +639,7 @@ Click **OK.**
 
 A simple way to test the connection of the RPD to the ADW in the cloud is to perform an analysis in the CAB. This requires a simple Business Model and a Presentation Subject Area.
 
-**Right-click** anywhere on the Business Model and Mapping panel and choose **New Business Model**.
+**Right-click ** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/5cda64c12bd9ca972825f93aefb4fb59/5cda64c12bd9ca972825f93aefb4fb59.png)
 
@@ -696,8 +687,119 @@ Make sure there are no errors (Warnings are OK) and click **Close.**
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/0163ce5b0a7caf181b3956c4e0b44950/0163ce5b0a7caf181b3956c4e0b44950.png)
 
-In the **File** menu click **Save**. click **No** for **Check Global Consistency.** From the **File menu,** click **Exit.** 
+In the **File** menu click **Save **. click **No** for **Check Global Consistency. **From the **File menu, **click **Exit. ** 
 
 ### **Summary** 
 
 The validated RPD can be uploaded to OAC using the steps in the [Upload Data Models to OAC documentation](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle -bi-enterprise-edition.html # GUID-2BEB60F6-986D-4A7A-9D63-EEE67083E98A). This post detailed the steps required to create a connection to the ADW (Autonomous Data Warehouse) using the OAC Client Developer tool on Windows. It also prepared a complete RPD for upload to OAC. See post **[OAC - Upload ADW Wallet and Create Console Connection and Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar- console-connection-e-replication-connection) ** for details on how to enable the RPD connection in OAC. For further details, visit the [Autonomous Data Warehouse](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/index.html) and [Analytics Cloud Pages](https: / /docs.oracle.com/en/cloud/paas/analytics-cloud/index.html)
+
+
+
+## Data Flow + Machine Learning
+
+After trying out the 'front-end' of Oracle Analytics Cloud it is time to explore other practices and features. With Data Flow, we are able to create joins between different sources and logical operations with the data. Usually we will use it for ETL purposes , just keep in mind it is not as powerful as ODI (which can be provisioned on OCI as a free image - that means you will only pay for the Compute).
+
+Good news is that a Data Flow may imported with a .dva file, so we can take a look on a Machine Learning project completely created in OAC. For that, we will import the **Naive Bayes Apply-Attrition+Analysis.dva** (the file password is **Admin123**).
+
+You can check that you have imported:
+
+- 1 Project
+
+![Proj](https://i.imgur.com/EiBTY9D.png)
+
+- 3 Datasets
+
+![Dataset](https://i.imgur.com/qaSBd2S.png)
+
+- 3 Data Flows
+
+![Dataflow](https://i.imgur.com/4rP9e6R.png)
+
+First, we are going to explore the Naives-Bayes Attrition Training Data Flow. Opening the Data Flow, we can see that we have a pretty straightforward flow: an input, a model training, and an output:
+
+![Naives-Bayes](https://i.imgur.com/AuM2zSF.png)
+
+For bringing data to the Data Flow, you will always use the **Add Data** option, the first one from the list. Other data preparation steps may be used, such as **Joins, Filters, Branchs and Custom Calculations**. An example of a more complex Data Flow is shown below:
+
+![ComplexDF](https://i.imgur.com/JGCgKvO.png)
+
+Going on with the Naives-Bayes Attrition Training example, first step selects the columns from the source dataset. This whole step may be prompted to select the data when the Data Flow runs, so a Flow is not exclusively used for a single data source.
+
+![1stStep](https://i.imgur.com/ef2hQYX.png)
+
+Second step is training a Machine Learning model using an algorithm provided by Oracle Analytics Cloud. In this case, it is a Naive-Bayes algorithm for Classification, used to analyze the history of people leaving the company (Attrition) and predict the behavior of all employees. Since the output is binary (Yes/No), a Binary Classifier is used, but there is also algorithms for **Numeric Predictions, Multi-classifiers and Clustering**, for example. You can set the algorithm parameters as you wish, as long as you keep Attrition as the target variable. This is what we want to predict: if someone is probably going to leave the company or not.
+
+![2ndStep](https://i.imgur.com/SRbtqXV.png)
+
+Last step is saving the model. When you run the Data Flow, the output of it will be a Machine Learning model, and you can edit its name and description.
+
+![3rdStep](https://i.imgur.com/mca5HBc.png)
+
+Data Flow can now be run and will perform every step in it. If there is need of building a big, complex flow, you can split it into smaller ones and run them as a **Sequence**. If one of those Data Flows fails, everything will be rolled back to the initial stage it was before the Sequence start.
+
+![Success](https://i.imgur.com/Y3wTXWY.png)
+
+When the Data Flow is completed, we can check our results on the Machine Learning tab.
+
+![MLTab](https://i.imgur.com/cCF8uMJ.png)
+
+Machine Learning area will display every Model trained by OAC, and also give you managing options.
+
+![ML](https://i.imgur.com/ioPaZsE.png)
+
+By **right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
+
+![Model](https://i.imgur.com/uu502EY.png)
+
+As you can see, the automatically generated model does not have a very impressive performance. Having a Machine Learning model is not the end of the road for you. Now you are going to **Apply** this model to a dataset and generate a prediction.
+
+You can do it by opening the **Naive-Bayes Apply Model - Attrition Prediction** Data Flow and executing it. Basically, if you choose the Apply Model step of the flow, you can change details like Inputs and Outputs, but we are not going to change anything right now.
+
+![MLApply](https://i.imgur.com/u8qfsN0.png)
+
+The model training data flow saved a model as output. By applying the machine learning model to the dataset, the output si now another dataset, with all the original dataset columns and 2 more: PredictedValue and PredictedConfidence.
+
+As soon as the data flow ends, you can search for the dataset on Data. In this example its name is **Attiction Predicted Data**.
+
+![MLData](https://i.imgur.com/emDKiFZ.png)
+
+If you haven't defined the metrics columns at the Data Flow level, you should do it on the **Prepare Tab**. Otherwise, you can begin exploring the data with Data Visualization. In my case I've chosen to create a custom calculation to count the predicted values. You can do it by **right-clicking My Calculations** and **Adding a Calculation**.
+
+![AddCalc](https://i.imgur.com/MIfmS1G.png)
+
+The name can be CountPredict or any other, and you can choose between lots of logical and mathematical operators. A simple count will do the job here:
+
+```sql
+COUNT(<column name>)
+```
+
+![count](https://i.imgur.com/TeQDydP.png)
+
+By using the new CountPredict column as Values, PredictedAttrition as Colors and Department as Trellis Columns, a new visualization was generated. One that shows how many employees were predicted to leave and how many were not, grouped by the department where they work:
+
+![Viz](https://i.imgur.com/L042dEx.png)
+
+To take a look on a more advanced dashboard, it is possible to take a look at the project imported with the .dva file:
+
+![ProjectML](https://i.imgur.com/SI8t7CS.png)
+
+There is a lot of visualizations created, all of them could be explored, filtered and shared to other users.
+
+![MLDashboard](https://i.imgur.com/B1QM4h4.png)
+
+That's all for the Machine Learning practice!
+
+## Oracle Application Express
+
+Oracle Application Express (APEX) is a low-code development platform that enables you to build scalable, secure enterprise apps, with world-class features, that can be deployed anywhere. APEX is included on every Autonomous Database deployment, and is enabled by a single click.
+
+For this Hands-on Lab I am going to use a guide included in the [Workshop material](http://140.238.185.3/assets/files/workshop_files.zip) (same download available in the first paragraph of this page).
+
+- We are going to do the Lab 500 (pg 36 - ATP_APEX_HOL_TRIAL_V1.1_PART2_OAC.pdf)
+
+The other labs if you feel like you want to dive deeper into APEX.
+
+PS: Follow every step of the guide, using the same Workspace Name otherwise the Import App process will fail. 
+
+### Thank You !!!
+
