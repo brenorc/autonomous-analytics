@@ -484,7 +484,7 @@ Create a Revenue by Region report.
 
 Now we are going to create a RPD repository to model a Database into Analytics
 
-Edit the***sqlnet.ora\*** file and update the wallet location with the address where it was saved.
+Edit the **sqlnet.ora** file and update the wallet location with the address where it was saved.
 
 WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="< **Your Client Credentials Folder** >")))
 
@@ -564,7 +564,7 @@ ADMINTOOL.CMD
 
  
 
-### Criando um novo repositório(RPD)
+### Creating a new Repository (RPD)
 
 On **File** menu, click on **New Repository.**
 
@@ -614,13 +614,13 @@ Rows count is displayed.
 
 ### **Preparing the RPD to upload to OAC**
 
-Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection ** for Console Connection in Data Visualization.
+There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the **tnsnames.ora** file from the ADW **wallet** file or the option **Externalize Connection** for Console Connection in Data Visualization.
 
 You can check the options to activate the RPD connection in OAC on post **[OAC - Upload ADW Wallet e Criar Console Connection e Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)**
 
 ### Using the Externalize Connection option
 
-As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition .html # GUID-40474084-5325-4177-A4AD-C2D570E588B4) ** for more details.
+As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition.html#GUID-40474084-5325-4177-A4AD-C2D570E588B4)** for more details.
 
 **Open** the ADW connection pool. Right-click **Connection Pool** and then **Properties.**
 
