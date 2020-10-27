@@ -479,9 +479,6 @@ Create a Revenue by Region report.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/598ef48adb6983ad6e806baabe0ec445/rpd.PNG)
 
-### **Última Validação: Agosto, 2019 - versão: OAC Dev Client Tool 105.3 e OAC 105.3**
-
-
 
 ### **Creating a RPD Connection between ADW and RPD**
 
@@ -499,15 +496,15 @@ Example:
 
 The examples in this post use a Command Prompt (CMD) window.
 
-Set an **CRED_LOC ** environment variable to the location of the ADW credentials folder.
+Set an **CRED_LOC** environment variable to the location of the ADW credentials folder.
 
-SET CRED_LOC = <**ADW credentials folder **>
+SET CRED_LOC = <**ADW credentials folder**>
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
 
 # **Downloading and Preparing OAC Developer Client Tool**
 
-You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html) ** for details on downloading the tool.
+You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html)** for details on downloading the tool.
 
  
 
@@ -529,9 +526,9 @@ After downloading, unzip the file and run the installer. Enter the Oracle home p
 
  
 
-**Note: **Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
+**Note:** Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
 
-Set an **OAC_HOME **environment variable to the location of the OAC Developer Tool installation folder.
+Set an **OAC_HOME** environment variable to the location of the OAC Developer Tool installation folder.
 
 SET OAC_HOME = <**The OAC installation directory**> 
 
@@ -544,9 +541,9 @@ SET OAC_HOME = <**The OAC installation directory**>
 The Developer Client Tool expects the network configuration files to be in the directory
 % OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
 
-Copy the *sqlnet.ora* and *tnsnames.ora* files from the ADW credentials folder to the folder above.
+Copy the **sqlnet.ora** and **tnsnames.ora** files from the ADW credentials folder to the folder above.
 
-copy *%CRED_LOC%*.ora % OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
+Copy *%CRED_LOC%*.ora %OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/e8c0499103b9d9b0c4fb8feec332de95/e8c0499103b9d9b0c4fb8feec332de95.png)
 
@@ -569,7 +566,7 @@ ADMINTOOL.CMD
 
 ### Criando um novo repositório(RPD)
 
-On **File** menu, click on**New Repository.**
+On **File** menu, click on **New Repository.**
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/529397e39a57166c89884372881c7014/529397e39a57166c89884372881c7014.png)
 
@@ -639,7 +636,7 @@ Click **OK.**
 
 A simple way to test the connection of the RPD to the ADW in the cloud is to perform an analysis in the CAB. This requires a simple Business Model and a Presentation Subject Area.
 
-**Right-click ** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
+**Right-click** anywhere on the Business Model and Mapping panel and choose **New Business Model**.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/5cda64c12bd9ca972825f93aefb4fb59/5cda64c12bd9ca972825f93aefb4fb59.png)
 
@@ -747,7 +744,7 @@ Machine Learning area will display every Model trained by OAC, and also give you
 
 ![ML](https://i.imgur.com/ioPaZsE.png)
 
-By **right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
+By **Right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
 
 ![Model](https://i.imgur.com/uu502EY.png)
 
