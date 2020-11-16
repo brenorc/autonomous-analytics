@@ -342,11 +342,13 @@ begin
  );
 end;
 ```
+
 To check if all your data was uploaded, you can use the command below:
 
 ```sql
 select count (*) from CREDIT_SCORING_100K
 ```
+
 If your result is 100000, it means every row was correctly updated to the table.
 
 
@@ -600,5 +602,93 @@ Click each one of the buttons and see if your result is a positive status. Those
 
 If the data was added correctly, this is the end of our Tutorial. 
 
+
+
+## Using the Autonomous JSON Database
+
+*Based on: https://blogs.oracle.com/jsondb/autonomous-json-database*
+
+It is also possible to work with JSON objects using any Oracle Autonomous Database, but the Autonomous JSON Database is optimized to do so. In this quick practice we are going to use SODA (Simple Oracle Document Access) - a native, open-source document store API for common programming languages including Java, JavaScript and Python. Developing applications with JSON and SODA is as easy with Oracle as it is with NoSQL databases like MongoDB.
+
+First of all, **create an Autonomous Database**. I suggest creating an Autonomous JSON Database but this practice will work on the other ADB versions as well.
+
+After logging in to **SQL Developer Web**, you can type in 'soda help' to get an overview of the soda commands:
+
+```
+soda help
+```
+
+![https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/3cf3e953-ae46-4d55-b48c-0f9981b017ef/Image/9fed4c2b9aa010bf884f7ca54ea7b426/step9.png](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/3cf3e953-ae46-4d55-b48c-0f9981b017ef/Image/9fed4c2b9aa010bf884f7ca54ea7b426/step9.png)
+
+Type the following to create a collection 'movies' and insert two JSON documents, with information related to 2 of my personal favorites
+
+```json
+soda create movies;
+soda insert movies {"name":"Matrix", "launch_year":"1999","genre":["Science Fiction","Action"]}
+soda insert movies {"name":"Forrest Gump", "launch_year":"1994","genre":["Comedy","Drama"]}
+```
+
+We can now query the collection to find documents matching a search/filter criteria.For example, I will look for movies with the gender set as 'Comedy'
+
+```json
+soda get movies -f {"genre":"Comedy"}  
+```
+
+![image-20201116170516521](https://i.postimg.cc/t4msDn4g/image-20201116170516521.png)
+
+It is also possible to filter using other expressions as 'greater than', The example below queries for any movies released after 1996 (launch year greater than 1996):
+
+```json
+soda get movies -f {"launch_year":{"$gt":1996}}
+```
+
+![image-20201116171457354](https://i.postimg.cc/VNrdhsJW/image-20201116171457354.png)
+
+In these examples we used a console to enter SODA commands. Typically, you would use SODA directly from a programming language. We do have SODA drivers for Java, JavaScript (nodeJS), Python, REST, Pl/Sql and ODPI-C.
+
+With the JSON data stored in an Oracle Database it is also possible to use SQL to access the very same data. First, let's describe the collection:
+
+```json
+describe movies;
+```
+
+![image-20201116171558014](https://i.postimg.cc/5th6Wcvd/image-20201116171558014.png)
+
+As one can see the JSON collection is backed by a regular table. The JSON data is stored in a binary representation optimized for fast reads and piece-wise updates. In order to convert it to a JSON string we use JSON_SERIALIZE.
+
+```sql
+select JSON_Serialize(JSON_Document) from movies;
+```
+
+![image-20201116171723295](https://i.postimg.cc/9MyzWxt4/image-20201116171723295.png)
+
+With JSON_Table it is possible to unnest the JSON data and project it to relational columns and rows. Please note that the two JSON documents generate 4 rows as both movie have two genres each.
+
+```sql
+select j.* from movies NESTED json_document 
+            COLUMNS (name, launch_year number, 
+              NESTED genre[*] 
+              COLUMNS(genre PATH '$')) j;
+              
+```
+
+![image-20201116171857204](https://i.postimg.cc/cCmH3rz0/image-20201116171857204.png)
+
+Going from a relational representation back to JSON is similarly easy. All we do is add one (or more) JSON generation functions to a query. In the following we are generating an array of all movies names. 
+
+```sql
+select JSON_ArrayAgg(c.json_document.name) from movies c;
+```
+
+![image-20201116172058361](https://i.postimg.cc/WzjztMX5/image-20201116172058361.png)
+
+Autonomous JSON Database is part of the [Oracle Autonomous Database](https://www.oracle.com/autonomous-database/) family. Autonomous JSON Database shares all of the core features for automation, lifecycle management, security, availability, scalability and elasticity with all other Autonomous Database services and is now extending all of the autonomous benefits to JSON application developers.
+
 ## Congratulations !!!
+
+You have completed all of the available tutorials.
+
+For questions, comments, or feedback, feel free to send an e-mail message to me at breno.comin@oracle.com. 
+
+Hope you have enjoyed!
 
