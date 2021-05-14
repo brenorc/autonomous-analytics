@@ -465,22 +465,41 @@ Create a Revenue by Region report.
 
 ![c](https://i.imgur.com/Yzt2c7s.png)
 
+Select a visualization chart in the menu:
+
 ![d](https://i.imgur.com/PAuvWW9.png)
 
+Save your Results.
+
 ![e](https://i.imgur.com/yVwhFff.png)
+
+Next time you are working on the 'Data Visualization' area of OAC you are going to find this Data Model as an available source to create new Visualizations:
 
 ![f](https://i.imgur.com/ifYxqym.png)
 
 ![g](https://i.imgur.com/hXpCXoT.png)
 
+And using what we have learned on this course we can leverage new ways of presenting our data!
+
 ![h](https://i.imgur.com/yLxGhRP.png)
+
+
+
+
+
+# Creating an ADW data source on RPD
+
+Cloud Modeler isn't the only way of doing Dimensional Modelling on Oracle Analytics Cloud.
+
+In this part we will create a new repository (RPD) using the OAC Dev Tool for the ADWC connection. See **[Creating a Repository Using the Oracle BI Administration Tool](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/bi/bi1221/rpd/rpd.html)** for more Details.
 
 
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/598ef48adb6983ad6e806baabe0ec445/rpd.PNG)
 
 
-### **Creating a RPD Connection between ADW and RPD**
+
+### Setting up the ADW Wallet for the Admin Tool
 
 Now we are going to create a RPD repository to model a Database into Analytics
 
@@ -496,62 +515,11 @@ Example:
 
 The examples in this post use a Command Prompt (CMD) window.
 
-Set an **CRED_LOC** environment variable to the location of the ADW credentials folder.
+Set an **CRED_LOC ** environment variable to the location of the ADW credentials folder.
 
-SET CRED_LOC = <**ADW credentials folder**>
+SET CRED_LOC = <**ADW credentials folder **>
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
-
-# **Downloading and Preparing OAC Developer Client Tool**
-
-You need a 64-bit Windows machine on which to install and run the Oracle Analytics Developer Tool. See **[Developer Client Tool for OAC](https://www.oracle.com/technetwork/middleware/oac/downloads/oac-tools-4392272.html)** for details on downloading the tool.
-
- 
-
-![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/fca84d67eb507dfbf605dd2bf34edc58/fca84d67eb507dfbf605dd2bf34edc58.png)
-
- 
-
-Download the OAC Developer Client Tool. It is important to check which version of the CAB you are using. This information can be checked in the My Services console in the instance information.
-
-![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/0f5af87e29f217f80490aee732b0ece7/0f5af87e29f217f80490aee732b0ece7.png)
-
-After downloading, unzip the file and run the installer. Enter the Oracle home path, where the OAC Developer tool will be saved, for example *C:\Oracle\OACDevTool*. Finish the installation.
-
-![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/c2d938bd87781e1b1986658429a57730/c2d938bd87781e1b1986658429a57730.png)
-
- 
-
-![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/9b19786cdfe509ffe5898f0bea1d3a35/9b19786cdfe509ffe5898f0bea1d3a35.png)
-
- 
-
-**Note:** Make sure the file permissions allow the Developer Client Tool to read the files in the directory. The easiest way in a development environment is to give everyone read access.
-
-Set an **OAC_HOME** environment variable to the location of the OAC Developer Tool installation folder.
-
-SET OAC_HOME = <**The OAC installation directory**> 
-
-
-
-![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/9552e4b903f83997e425303b3c7554f8/9552e4b903f83997e425303b3c7554f8.png)
-
-
-
-The Developer Client Tool expects the network configuration files to be in the directory
-% OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
-
-Copy the **sqlnet.ora** and **tnsnames.ora** files from the ADW credentials folder to the folder above.
-
-Copy *%CRED_LOC%*.ora %OAC_HOME%\domains\bi\config\fmwconfig\bienv\core
-
-![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/e8c0499103b9d9b0c4fb8feec332de95/e8c0499103b9d9b0c4fb8feec332de95.png)
-
- 
-
-# Creating an ADW data source on RPD
-
-In this part we will create a new repository (RPD) using the OAC Dev Tool for the ADWC connection. See **[Creating a Repository Using the Oracle BI Administration Tool](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/bi/bi1221/rpd/rpd.html)** for more Details.
 
 ### Start the Oracle Analytics Developer Client Tool
 
@@ -614,13 +582,13 @@ Rows count is displayed.
 
 ### **Preparing the RPD to upload to OAC**
 
-There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the **tnsnames.ora** file from the ADW **wallet** file or the option **Externalize Connection** for Console Connection in Data Visualization.
+Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection ** for Console Connection in Data Visualization.
 
 You can check the options to activate the RPD connection in OAC on post **[OAC - Upload ADW Wallet e Criar Console Connection e Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)**
 
 ### Using the Externalize Connection option
 
-As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition.html#GUID-40474084-5325-4177-A4AD-C2D570E588B4)** for more details.
+As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition .html # GUID-40474084-5325-4177-A4AD-C2D570E588B4) ** for more details.
 
 **Open** the ADW connection pool. Right-click **Connection Pool** and then **Properties.**
 
@@ -636,7 +604,7 @@ Click **OK.**
 
 A simple way to test the connection of the RPD to the ADW in the cloud is to perform an analysis in the CAB. This requires a simple Business Model and a Presentation Subject Area.
 
-**Right-click** anywhere on the Business Model and Mapping panel and choose **New Business Model**.
+**Right-click ** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/5cda64c12bd9ca972825f93aefb4fb59/5cda64c12bd9ca972825f93aefb4fb59.png)
 
@@ -688,7 +656,7 @@ In the **File** menu click **Save **. click **No** for **Check Global Consistenc
 
 ### **Summary** 
 
-The validated RPD can be uploaded to OAC using the steps in the [Upload Data Models to OAC documentation](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition.html#GUID-2BEB60F6-986D-4A7A-9D63-EEE67083E98A). This post detailed the steps required to create a connection to the ADW (Autonomous Data Warehouse) using the OAC Client Developer tool on Windows. It also prepared a complete RPD for upload to OAC. See post **[OAC - Upload ADW Wallet and Create Console Connection and Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)** for details on how to enable the RPD connection in OAC. For further details, visit the [Autonomous Data Warehouse](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/index.html) and [Analytics Cloud Pages](https: / /docs.oracle.com/en/cloud/paas/analytics-cloud/index.html)
+The validated RPD can be uploaded to OAC using the steps in the [Upload Data Models to OAC documentation](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle -bi-enterprise-edition.html # GUID-2BEB60F6-986D-4A7A-9D63-EEE67083E98A). This post detailed the steps required to create a connection to the ADW (Autonomous Data Warehouse) using the OAC Client Developer tool on Windows. It also prepared a complete RPD for upload to OAC. See post **[OAC - Upload ADW Wallet and Create Console Connection and Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar- console-connection-e-replication-connection) ** for details on how to enable the RPD connection in OAC. For further details, visit the [Autonomous Data Warehouse](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/index.html) and [Analytics Cloud Pages](https: / /docs.oracle.com/en/cloud/paas/analytics-cloud/index.html)
 
 
 
@@ -744,7 +712,7 @@ Machine Learning area will display every Model trained by OAC, and also give you
 
 ![ML](https://i.imgur.com/ioPaZsE.png)
 
-By **Right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
+By **right-clicking** the Naives-Bayes - Attrition Train Model and **Inspecting** it, it is possible to see overall info about the model and its **Quality** (results like the Confusion Matrix for the model)
 
 ![Model](https://i.imgur.com/uu502EY.png)
 
@@ -786,17 +754,221 @@ There is a lot of visualizations created, all of them could be explored, filtere
 
 That's all for the Machine Learning practice!
 
-## Oracle Application Express
+## Embedding Oracle Analytics Cloud 
 
-Oracle Application Express (APEX) is a low-code development platform that enables you to build scalable, secure enterprise apps, with world-class features, that can be deployed anywhere. APEX is included on every Autonomous Database deployment, and is enabled by a single click.
+Last but not least we are going to embedded some of our projects into other webpages. This is a pretty straightforward process, but some details may hold you back, so follow this guide step by step.
 
-For this Hands-on Lab I am going to use a guide included in the [Workshop material](http://140.238.185.3/assets/files/workshop_files.zip) (same download available in the first paragraph of this page).
+First of all we are going to need to create a virtual machine to host our website. You could try to run the web page locally, but personally I have ran into a lot of CORS issues (Cross Origin Resource Sharing) when trying to do so. 
 
-- We are going to do the Lab 500 (pg 36 - ATP_APEX_HOL_TRIAL_V1.1_PART2_OAC.pdf)
+### Setting up the Virtual Cloud Network
 
-The other labs if you feel like you want to dive deeper into APEX.
+To create the Virtual Cloud Network, you should go to the **hamburger menu -> Networking -> Virtual Cloud Network** (we usually call them VCNs)
 
-PS: Follow every step of the guide, using the same Workspace Name otherwise the Import App process will fail. 
+![img](https://i.imgur.com/AyY81E0.png)
+
+Then, you can just choose the **Networking Quickstart** option
+
+![img](https://i.imgur.com/4rcWGjp.png)
+
+Choose the **VCN with Internet Connectivity** and click **Start Workflow**
+
+A wizard will be launched, simply define a name for the VCN and configure the CIDR Block using the values on the examples (just below the boxes)
+
+![img](https://i.imgur.com/HfH0l5Y.png)
+
+Click **Next** and your VCN will be created, along with a Private and a Public Subnet. Since we are going to connect to our Linux instance via ssh and via internet, we are going to use the Public Subnet when we're given the choice.
+
+Click **View Virtual Cloud Network** to check the network details.
+
+Since we are going to use some ports on this network, we will have to enable the connection via those ports. Scroll down to **Resources -> Security Lists** and choose the **Default Security List for your VCN**
+
+![img](https://i.imgur.com/hwr5wb3.png)
+
+Click **Add Ingress Rules** and unlock the **port 80** to allow HTTP communication through the webserver and Oracle Analytics Cloud. That's all we are going to need on the network side (Image unlocks other ports because was taken from another example)
+
+![img](https://i.imgur.com/xORwPl8.png)
+
+After clicking Add Ingress Rules, just check if you have the rule created. We are now ready to create our Linux Virtual Machine.
+
+### Setting up the Linux VM
+
+To create the Linux VM, you will have to go to the Compute Instances console. You can find it at the **Hamburger Menu -> Compute -> Instance**
+
+![img](https://i.imgur.com/DP52OaL.png)
+
+Click **Create Compute Instance** and a Wizard will show up. 
+
+- Choose the **Oracle Linux 7.9** distribution under the Oracle Image tab 
+- Set the Intance Shape to **VM.Standard.E2.1**
+- Make sure that you are using your **VCN**, and do not forget to choose the **Public Subnet** and to **Assign a Public IP address** to your Linux Instance
+- Upload a ssh .pub file to use for connecting with your VM
+
+After sending the request to create your VM, it should take some minutes to get it running (usually no more than 3 min). You will be able to find the **Public IP Address** on the **Instance Details**
+
+![img](https://i.imgur.com/69wTPey.png)
+
+We will use this Public IP Address to ssh into the OS and host our website. 
+
+So you are going to need tools to ssh into the instance and transfer files via FTP. I am going to use [MobaXTerm](https://mobaxterm.mobatek.net/), but feel free to use other alternatives like Putty and WinSCP, for example.
+
+Log into your instance by using:
+
+- Your Public IP Address
+- The opc username
+- Port 22
+- Your .ppk key file
+
+![img](https://i.imgur.com/r3dJLHZ.png)
+
+After connecting to the VM, let's setup the Apache Server to run our website:
+
+```bash
+sudo yum install httpd
+sudo systemctl enable httpd
+sudo systemctl restart httpd
+```
+
+These commands will install and initialize the server, do not forget to also open port 80:
+
+```bash
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --reload
+```
+
+Our environment is now set. Let's create our HTML file to embed the application. OAC's documentation makes easier for us by having a example in https://docs.oracle.com/en/cloud/paas/analytics-cloud/acubi/embed-javascript.html#GUID-FFBB4351-F80B-453A-9CC3-E3AA4B42539F
+
+```html
+<!DOCTYPE html>
+<html dir="ltr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Embeded Oracle Analytics Project Example</title>
+        <script src="https://<instance>.analytics.ocp.oraclecloud.com/public/dv/v1/embedding/<embedding mode>/embedding.js" type="application/javascript">
+        </script>
+
+    </head>
+    <body>
+        <h1>Embeded Oracle Analytics Project</h1>
+        <div style="border:1px solid black;position: absolute; width: calc(100% - 40px); height: calc(100% - 120px)" >
+            <!-- The following tag is the tag that will embed the specified project.
+Veryfy the project-path is the same as the server you are hosting this project on. -->
+            <oracle-dv
+               project-path="<project path>"
+               active-page="canvas"
+               active-tab-id="1">
+            </oracle-dv>
+        </div>
+        <!--Apply Knockout bindings after DV project is fully loaded.  This should be executed in a body onload handler or in a <script> tag after the <oracle-dv> tag.
+        -->
+        <script>
+        requirejs(['knockout', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojcomposite', 'jet-composites/oracle-dv/loader'], function(ko) {
+        ko.applyBindings();
+        });
+        </script>
+    </body>
+</html>
+
+```
+
+Since this code is just a template, let's generate a code for our project. This is automatic generated on any Canvas if you click on the **upper-right menu -> Developer**
+
+![image-20210514094031549](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514094031549.png)
+
+
+
+This will open the page with the code for embedding our viz.
+
+![image-20210514094133112](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514094133112.png)
+
+
+
+There are two fields that must be replaced on our HTML file.
+
+**Change #1:** The instance address in the <head> section
+
+```html
+<script src="https://<instance>.analytics.ocp.oraclecloud.com/public/dv/v1/embedding/<embedding mode>/embedding.js" type="application/javascript"> </script>
+```
+
+Also, change the <embedding mode> area to **jet** or **standalone**
+
+- Use `jet` if you're embedding content within an existing Oracle JET application. If you use `jet`, then the version of Oracle JET that’s used by the application must match the version of Oracle JET used by Oracle Analytics.
+
+  Oracle JET is a set of Javascript-based libraries used for the Oracle Analytics user interface.
+
+- Use `standalone` when embedding visualization content in a generic application that doesn’t use Oracle JET. That's what we are going to use in our example.
+
+My code ended up like this:
+
+```html
+ <script src="https://workshop-grri30nzv1ul-gr.analytics.ocp.oraclecloud.com/public/dv/v1/embedding/standalone/embedding.js" type="application/javascript">    </script>
+```
+
+**Change #2:** The path for our project (directly from the Embed page)
+
+```html
+<oracle-dv     project-path="<project path>"
+               active-page="canvas"
+               active-tab-id="1">         </oracle-dv>
+```
+
+My example:
+
+```html
+ <oracle-dv    project-path="/@Catalog/users/breno.comin@oracle.com/Sample Project"
+               active-page="canvas"
+               active-tab-id="1">        </oracle-dv>
+```
+
+Save your code as an index.html file and make any changes to the HTML page if you feel like. My final result is: 
+
+```html
+<!DOCTYPE html>
+<html dir="ltr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Embeded Oracle Analytics Project Example</title>
+        <script src="https://workshop-grri30nzv1ul-gr.analytics.ocp.oraclecloud.com/public/dv/v1/embedding/standalone/embedding.js" type="application/javascript">
+        </script>
+
+    </head>
+    <body>
+        <h1>Embeded Oracle Analytics Project</h1>
+        <div style="border:1px solid black;position: absolute; width: calc(100% - 40px); height: calc(100% - 120px)" >
+            <oracle-dv
+               project-path="/@Catalog/users/breno.comin@oracle.com/Sample Project"
+               active-page="canvas"
+               active-tab-id="1">
+            </oracle-dv>
+        </div>
+        <script>
+        requirejs(['knockout', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojcomposite', 'jet-composites/oracle-dv/loader'], function(ko) {
+        ko.applyBindings();
+        });
+        </script>
+    </body>
+</html>
+```
+
+
+
+Now we just have to transfer this webpage to our Apache Server.
+
+SSH into the environment using the FTP tool and copy your file to the **/var/www/html** folder
+
+```bash
+sudo cp /home/opc/index.html /var/www/html/
+```
+
+Now before accessing your Virtual Machine through your public IP address you will have to allow it inside Oracle Analytics. Go to the Burger Menu -> Console -> Safe Domains and add your instance's Public IP as a Safe Domain:
+
+![image-20210514100722464](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514100722464.png)
+
+And you will be able to see your projects just by entering login credentials:
+
+![image-20210514100234778](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514100234778.png)
+
+That's all! I hope you have enjoyed this training session and have learned a lot from it!
 
 ### Thank You !!!
 
