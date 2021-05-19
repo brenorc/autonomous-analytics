@@ -544,7 +544,7 @@ Enter a **Name** and **Location** (by default it is filled, but can be changed),
 
 ### Importing a Physical Database
 
-NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name **, enter the **User Name** and **Password** of the database and click **Next**.
+NIn the **Select Data Source** panel, select the **Connection Type** *Oracle Call Interface (OCI)*, enter the *TNS Connect Descriptor* from the tnsnames.ora file, as the **Data Source Name**, enter the **User Name** and **Password** of the database and click **Next**.
 
 Below is an example of *Connect Descriptor*. See [**Connect Descriptor Descriptions**](https://docs.oracle.com/database/121/NETRF/tnsnames.htm#NETRF265) for additional details.
 
