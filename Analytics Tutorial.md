@@ -515,9 +515,9 @@ Example:
 
 The examples in this post use a Command Prompt (CMD) window.
 
-Set an **CRED_LOC ** environment variable to the location of the ADW credentials folder.
+Set an **CRED_LOC** environment variable to the location of the ADW credentials folder.
 
-SET CRED_LOC = <**ADW credentials folder **>
+SET CRED_LOC = <**ADW credentials folder**>
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/cb80adedf663c0fa152cf182fa3d8c16/cb80adedf663c0fa152cf182fa3d8c16.png)
 
@@ -582,13 +582,13 @@ Rows count is displayed.
 
 ### **Preparing the RPD to upload to OAC**
 
-Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection ** for Console Connection in Data Visualization.
+Existem duas formas de preparar a conexão do ADW que o RPD irá utilizar no Oracle Analytics Cloud, você There are two ways to prepare the ADW connection that the RPD will use in Oracle Analytics Cloud, you can use the **TNS Connect Descriptor** from the *tnsnames.ora* file from the ADW *wallet* file or the option **Externalize Connection** for Console Connection in Data Visualization.
 
 You can check the options to activate the RPD connection in OAC on post **[OAC - Upload ADW Wallet e Criar Console Connection e Replication Connection](https://blogs.oracle.com/lad-cloud-experts/pt/oac-upload-adw-wallet-e-criar-console-connection-e-replication-connection)**
 
 ### Using the Externalize Connection option
 
-As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition .html # GUID-40474084-5325-4177-A4AD-C2D570E588B4) ** for more details.
+As noted above, Externalize Connection can allow the connection pool to use a DV console connection created in OAC. See **[Connecting to a Data Source Using an External Connection](https://docs.oracle.com/en/cloud/paas/analytics-cloud/acabi/upload-data-models-oracle-bi-enterprise-edition.html#GUID-40474084-5325-4177-A4AD-C2D570E588B4)** for more details.
 
 **Open** the ADW connection pool. Right-click **Connection Pool** and then **Properties.**
 
@@ -604,7 +604,7 @@ Click **OK.**
 
 A simple way to test the connection of the RPD to the ADW in the cloud is to perform an analysis in the CAB. This requires a simple Business Model and a Presentation Subject Area.
 
-**Right-click ** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
+**Right-click** anywhere on the Business Model and Mapping panel and choose **New Business Model **.
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/5cda64c12bd9ca972825f93aefb4fb59/5cda64c12bd9ca972825f93aefb4fb59.png)
 
@@ -652,7 +652,7 @@ Make sure there are no errors (Warnings are OK) and click **Close.**
 
 ![img](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/1d5f4835-dba4-4adb-8b0c-73a75300a9da/File/0163ce5b0a7caf181b3956c4e0b44950/0163ce5b0a7caf181b3956c4e0b44950.png)
 
-In the **File** menu click **Save **. click **No** for **Check Global Consistency. **From the **File menu, **click **Exit. ** 
+In the **File** menu click **Save**. click **No** for **Check Global Consistency.** From the **File menu,** click **Exit.** 
 
 ### **Summary** 
 
