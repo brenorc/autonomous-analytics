@@ -872,13 +872,13 @@ Veryfy the project-path is the same as the server you are hosting this project o
 
 Since this code is just a template, let's generate a code for our project. This is automatic generated on any Canvas if you click on the **upper-right menu -> Developer**
 
-![image-20210514094031549](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514094031549.png)
+![image-20210514094031549](https://i.imgur.com/LQoH0XJ.png)
 
 
 
 This will open the page with the code for embedding our viz.
 
-![image-20210514094133112](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514094133112.png)
+![image-20210514094133112](https://i.imgur.com/CCv4qXz.png)
 
 
 
@@ -960,13 +960,13 @@ SSH into the environment using the FTP tool and copy your file to the **/var/www
 sudo cp /home/opc/index.html /var/www/html/
 ```
 
-Now before accessing your Virtual Machine through your public IP address you will have to allow it inside Oracle Analytics. Go to the Burger Menu -> Console -> Safe Domains and add your instance's Public IP as a Safe Domain:
+Now before accessing your Virtual Machine through your public IP address you will have to allow it inside Oracle Analytics. Go to the **Burger Menu -> Console -> Safe Domains** and add your instance's Public IP as a Safe Domain:
 
-![image-20210514100722464](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514100722464.png)
+![image-20210514100722464](https://i.imgur.com/el9ojdS.png)
 
 And you will be able to see your projects just by entering login credentials:
 
-![image-20210514100234778](C:\Users\bcomin\AppData\Roaming\Typora\typora-user-images\image-20210514100234778.png)
+![image-20210514100234778](https://i.imgur.com/a10NSU6.png)
 
 That's all! I hope you have enjoyed this training session and have learned a lot from it!
 
