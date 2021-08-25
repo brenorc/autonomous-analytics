@@ -74,6 +74,216 @@ Your results should look like the picture below:
 
 ![SampleQuery2](https://i.imgur.com/tWRkQRl.png)
 
+## Autonomous Data Tools
+
+
+
+Autonomous Data Warehouse comes with a built-in suite of tools that can help you with many of the typical data warehouse tasks. This tool suite is complementary to various capabilities accessible via the SQL command line, which themselves are covered by other workshops. To explore how these new built-in tools can make you work smarter and faster, you will take on the role of a departmental analyst at MovieStream. As a **departmental analyst**, you have been assigned the task of reviewing the sales data from Q2 of fiscal year 2020 and making recommendations for a marketing campaign based on this analysis.
+
+
+
+### Access Autonomous Database Tools via the ADW Console
+
+On the Autonomous Data Warehouse console page, click the **Tools** tab, and in the **Database Actions** card, click the link to **Open Database Actions**:
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/database-tools.png)
+
+This will take you to the Autonomous Data Warehouse Database Actions home page (shown below). This page has a card for each of the most common tasks that the data warehouse user would want to perform. The cards are grouped by theme. For example, here you see groups for Development and Data Tools. Each card has a title and description.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/database-actions.png)
+
+If you want more information about each of the tasks related to each card, then you can access the online help by clicking the Question Mark in the title bar, as indicated in the image below:
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/question-mark.png)
+
+This will pop out a tray containing links to the relevant topics in the Autonomous Data Warehouse documentation. To close the help tray, simply click the X.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/help.png)
+
+
+
+### Load Data to ADW
+
+Click the **Data Load** card on the **Database Actions** home page.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/data-load.png)
+
+To load the files from your local computer, you need to click on the first card in each of the first two rows of cards (in row one - **LOAD DATA** and row two - **LOCAL FILE**) which will mark each box with a blue tick in the bottom right corner. To move forward to the next step in this process, simply click the blue Next button.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/load-local.png)
+
+This is where you need to locate the four files (Movie_Sales_2020.csv, Countries.csv, Days_Months.xlsx and Devices.xlsx) that you downloaded earlier! If they are easily accessible, then you can simply **drag ALL FOUR** files at one time, and drop them onto to canvas as stated in the text on the screen.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/upload.png)
+
+Why do you have **five** cards listed on the data loading screen? This is because your spreadsheet file **Days_Months.xlsx** contains two worksheets: one for Days and one for Months. The data loading wizard automatically parsed your spreadsheet and created a separate data loading card for each worksheet. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/2879071187.png)
+
+Before you load any data, let's review what the data loading wizard has discovered about the data within your data files. Let's focus on the **Countries.csv** file. Click the **pencil icon** on the right side of the card to inspect the data loading properties:
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/inspect-countries.png)
+
+In the bar on the left, there are links for Settings, File, Table, and an Error Log. This screenshot shows the **Settings** page. Observe that this shows the structural information and intelligent default values that data wizard has created from simply looking at the file.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/data-load-settings.png)
+
+Click **Close** in the bottom right to return to the Data Load card and then click the **green button** in the menu panel to start the Data Load job.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/green-button.png)
+
+The time taken to load each file depends on factors including file size and network speed. The progress of the job can be monitored from the status bar and the ring to the left of each job card. When the ring is complete, the file has uploaded successfully. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/loading.png)
+
+
+
+### Identify Data Problems
+
+Navigate to the **Data Load** main page and click the **Explore** card. You'll now see table MOVIE_SALES_2020 has been loaded into your Autonomous Data Warehouse.
+
+Click this table and then click **Source Statistics** on the panel to the left of the screen. Statistics help you quickly understand the structure and content of the table. In this case, this data presents a nice simple way to characterize the data you've just loaded. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/explore-sales.png)
+
+### 
+
+Click on the word **DAY** in the first column. You can see that there are 14 distinct values - which looks odd. The low value is **FRIDAY** (i.e. it's all uppercase) and the high value is **Wednesday**, which is in title case. The distribution of these values is shown in the bar chart at the bottom of the form (see the image above). As you move your mouse across these bars, you can see there are two separate bars for each day: one in uppercase and the other in title case.
+
+You can also see that you have data for twelve months. This should not be a surprise, since the data extract you loaded in the previous step was for 2020. However, for your quarterly reporting project, it's obvious that you have too many months: your mission here is to analyze data only for Q2. 
+
+From the Autonomous Database **Tools** home page, access a SQL worksheet by clicking the **SQL** card on the **Database Actions** page. Copy and paste the following SQL statement into the Worksheet.
+
+```plsql
+create table MOVIE_SALES_2020Q2 as
+select COUNTRY
+, initcap(DAY) as DAY -- Use title case for days
+, MONTH
+, GENRE
+, CUSTOMER_SEGMENT
+, DEVICE
+, SALES
+, PURCHASES
+FROM MOVIE_SALES_2020
+where month in ('April','May','June'); -- only want data from Q2
+exec dbms_stats.gather_table_stats(user, 'MOVIE_SALES_2020Q2');
+```
+
+Select the entire text in the Worksheet and press the **green** button to run these two statements. You should see that both statements have executed successfully. Having completed this step you now have a table MOVIE_SALES_2020Q2, with data for just April, May, and June. The days have all been changed to title case. Refresh to see the new table created.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/data-transforms.png)
+
+
+
+### Create a Business Model
+
+Start by clicking the **Business Models** card in the ADB **Database Actions** page. The page on which you'll land has some text explaining the Business Model utility in some detail, but let's dive straight in.
+
+Press one of the **Create Model** buttons. If **MOVIE_SALES_2020Q2** is not already identified as the **Fact Table** , select it from the pick list. (Be sure to select table **MOVIE_SALES_2020Q2**, which has just the data for April, May, June, and not table MOVIE_SALES_2020, which has data for the full year!)
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/business-model.png)
+
+Now, press **Next** to start the Auto-Business Model utility. This will take several seconds to complete, after which you'll see a dialog such as this.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/2879071220.png)
+
+Press **Close** and select **Data Sources** from the panel at the left of the screen. You'll see that a star schema has been identified, based on the tables that you loaded in previous steps of this lab. All columns of the Fact Table, MOVIE_SALES_2020Q2, are already shown.
+
+Press the **three dots** to the right of table DAYS and select **Expand**. Repeat this for the other three dimension tables. You should see the star schema laid out as follows:
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/2879071210.png)
+
+Select **Hierarchies** from the list on the left of the screen and click the three dots to the right of the row for hierarchy **CONTINENT**. Click **Edit**.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/hierarchy-continent.png)
+
+Notice that the business model tool has detected a hierarchy of Countries within Continents, based on the structure and contents of the tables in the Autonomous Data Warehouse. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/continent-country.png)
+
+This is a great head start, but a better term to use for this hierarchy would be geography. Override the default *Hierarchy Name* with **GEOGRAPHY**. Override *Caption* and *Description* with **Geography** as shown below. Then click **Save**. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/geography.png)
+
+Clean up hierarchy DAYS:
+
+- Click the three dots to the right of that hierarchy and select **Edit**. 
+
+- Change *Hierarchy Name* to **DAY**.
+
+- Change **Caption** **and** **Description** **to** **Day**. 
+
+  ![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/day-hierarchy.png)
+
+This is simply a day-of-week hierarchy, but now you'll see the value of the table that the sales analyst had set up in a previous analysis. Sorting days alphabetically is not particularly helpful. What's preferable is to sort by the day number of week. Conventions for day numbers vary across the world and the DAYS table supports both the European and the North American conventions. You'll use the North American convention for this exercise. Change the *Sort By* to **DAY_NUM_USA**. Then click **Save**. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/sort-day.png)
+
+Similarly, change the MONTHS dimension as follows:
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/month.png)
+
+Now select **Measures**, the last item on the list on the left of the screen. Notice that Auto-Business Model has identified SALES and PURCHASES as candidate Measures from the Fact Table (because these are numeric columns).
+
+a. 	Measure SALES is a dollar amount.
+
+b.	 Measure PURCHASES is a tally of the number of purchases made.
+
+The default aggregation expression for the measures is SUM. Other expressions could be selected, but for the purposes of this workshop, SUM is the appropriate value to select in both cases.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/sum.png)
+
+
+
+Press **Create** and then **Yes** in the confirmation dialog. After a few seconds, the Business Model is successfully created, and represented by a card at the bottom of the screen.
+
+Press the three dots on the top right of the card and select **Show DDL** from the list that appears. 
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/show-ddl.png)
+
+
+
+Experienced users of Oracle Database will note that the Business Model is implemented in the database as an Analytic View. Experienced or not, it's nice to know that you didn't have to type any of that DDL! Click **Close** to return to the Business Model screen, click the **three dots** on the Business Model's card again and this time select **Analyze** from the list that appears.
+
+You should see a data summary similar to this.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/data-summary.png)
+
+
+
+Then click **Layout**.
+
+Notice that there are two tabs across the top of the Layout screen.
+
+In the Hierarchies tab:
+
+a. Change the layout of hierarchy *GEOGRAPHY* to **All** by selecting that value from the pick list.
+
+b. Change the layout of hierarchy *CUSTOMER_SEGMENT* to **Column**.
+
+c. Change the layout of hierarchy *DEVICES* to **Row**.
+
+
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/hierarchies-tab.png)
+
+
+
+In the Measures tab:
+
+a. Deselect measure **SALES**.
+
+b. Select measure **PURCHASES**.
+
+Click **Close**.
+
+You should see a data summary similar to this.
+
+![ALT text is not available for this image](https://oracle.github.io/learning-library/data-management-library/autonomous-database/shared/workshops/adbs-tools/using-adb-tools/images/data-summary-good.png)
+
+
+
+Having completed this step, you now have a Business Model over table MOVIE_SALES_2020Q2. This features hierarchies, measures (including aggregation expressions), and provides a preview pane in which to view the data and do some rudimentary analysis. Press **Close** to return to the Business Model page.  
 
 
 ## Oracle Application Express
