@@ -791,8 +791,8 @@ You will have to input you Public IP Address, so identify the string, use **i** 
 Finally we are going to remove the content from nginx html folder and copy our frontpage into it:
 
 ```bash
-rm -rf /usr/share/nginx/html/*
-cp /home/dev/workshops/frontend/* /usr/share/nginx/html/
+rm -rf /var/www/html/*
+cp /home/dev/workshops/frontend/* /var/www/html/
 ```
 
 The next step is to open your browser and type the Public IP address of your VM. If everything is correct, you will see the page below:
