@@ -697,7 +697,7 @@ Create a directory and browse to it, then clone the git project with all the cod
 ```bash
 mkdir /home/dev
 cd /home/dev
-git clone https://github.com/gustavogaspar/workshops.git
+git clone https://github.com/brenorc/workshops.git
 ```
 
 Alter the instancePrep.sh permissions so you can run this script. This will prepare all the environment for us.
